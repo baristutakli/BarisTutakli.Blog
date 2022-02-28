@@ -8,8 +8,9 @@ namespace BarisTutakli.Blog.WebAPI.Application.ViewModels.TagViewModels
 {
     public class UpdateTagModel
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public string MetaTitle { get; set; }
-        public string Contents { get; set; }
+        public string Body { get; set; }
     }
 }

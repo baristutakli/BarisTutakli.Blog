@@ -10,6 +10,6 @@ namespace BarisTutakli.Blog.WebAPI.Application.ViewModels.CategoryViewModels
     {
         public string Title { get; set; }
         public string MetaTitle { get; set; }
-        public string Description { get; set; }
+        public string Body { get; set; }
     }
 }
