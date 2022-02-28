@@ -13,5 +13,6 @@ namespace BarisTutakli.Blog.Domain.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Intro { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

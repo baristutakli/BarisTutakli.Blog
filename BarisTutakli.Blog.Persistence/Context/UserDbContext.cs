@@ -1,4 +1,5 @@
-﻿using BarisTutakli.Blog.Domain.Entities;
+﻿using BarisTutakli.Blog.Application.Interfaces;
+using BarisTutakli.Blog.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
