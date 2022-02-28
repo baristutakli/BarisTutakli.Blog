@@ -11,7 +11,6 @@ namespace BarisTutakli.Blog.WebAPI.Application.ViewModels.PostViewModels
 {   
     public class CreatePostModel
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public string MetaTitle { get; set; }
         public string Summary { get; set; }
