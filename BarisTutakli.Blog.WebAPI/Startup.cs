@@ -1,3 +1,4 @@
+using BarisTutakli.Blog.Persistence;
 using BarisTutakli.Blog.Persistence.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,8 +36,9 @@ namespace BarisTutakli.Blog.WebAPI
             });
 
             // DB connection string
-            services.AddDbContext<UserDbContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:DBBlog"]));
-            services.AddScoped<UserDbContext>();
+
+            //Persistence Layer dependency resolver
+            services.AddPersistenceServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
