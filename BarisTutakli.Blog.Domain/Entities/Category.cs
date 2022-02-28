@@ -23,7 +23,7 @@ namespace BarisTutakli.Blog.Domain.Entities
         public string MetaTitle { get;  set; }
 
         [MaxLength(300)]
-        public string Description { get; set; }
+        public string Body { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
     }
 }

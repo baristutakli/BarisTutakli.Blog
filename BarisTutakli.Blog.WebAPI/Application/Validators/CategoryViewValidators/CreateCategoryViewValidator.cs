@@ -12,7 +12,7 @@ namespace BarisTutakli.Blog.WebAPI.Application.Validators.CategoryViewValidators
         public CreateCategoryViewValidator()
         {
             RuleFor(vm => vm.Title).NotNull().NotEmpty().MaximumLength(50);
-            RuleFor(vm => vm.Description).NotNull().NotEmpty().MaximumLength(300);
+            RuleFor(vm => vm.Body).NotNull().NotEmpty().MaximumLength(300);
             RuleFor(vm => vm.MetaTitle).NotNull().NotEmpty().MaximumLength(50);
     }
     }

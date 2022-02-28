@@ -21,7 +21,7 @@ namespace BarisTutakli.Blog.Domain.Entities
         public string Title { get; set; }
         public string MetaTitle { get; set; }
         [Required]
-        public string Description { get; set; }
+        public string Body { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
 
 

@@ -26,6 +26,6 @@ namespace BarisTutakli.Blog.Domain.Entities
         public bool Published { get;  set; }
         public DateTime PublishedAt { get; set; }
         [MaxLength(500)]
-        public string Contents { get; set; }
+        public string Body { get; set; }
     }
 }
