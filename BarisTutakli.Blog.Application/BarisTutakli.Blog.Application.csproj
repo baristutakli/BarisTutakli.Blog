@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dto\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BarisTutakli.Blog.Domain\BarisTutakli.Blog.Domain.csproj" />
   </ItemGroup>
 
