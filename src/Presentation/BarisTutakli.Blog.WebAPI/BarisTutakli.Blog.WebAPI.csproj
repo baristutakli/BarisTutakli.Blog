@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Application\BarisTutakli.Blog.Application\BarisTutakli.Blog.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\BarisTutakli.Blog.Infrastructure\BarisTutakli.Blog.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\BarisTutakli.Blog.Persistence\BarisTutakli.Blog.Persistence.csproj" />
