@@ -1,3 +1,4 @@
+using BarisTutakli.Blog.Application;
 using BarisTutakli.Blog.Persistence;
 using BarisTutakli.Blog.WebAPI.Middleware;
 using Microsoft.AspNetCore.Builder;
@@ -35,6 +36,10 @@ namespace BarisTutakli.Blog.WebAPI
             });
             //Persistence dependency resolver
             services.AddPersistenceServices(Configuration);
+            // Application leyer dependency resolver
+            services.AddApplicationServices();
+           
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
