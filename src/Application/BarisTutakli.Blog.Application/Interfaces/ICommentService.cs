@@ -1,5 +1,6 @@
 ﻿using BarisTutakli.Blog.Application.Dto;
 using BarisTutakli.Blog.Application.Models.CommentModels;
+using BarisTutakli.Blog.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace Blog.Application.Interfaces
 {
     public interface ICommentService
     {
-        List<GetCommentModel> GetAll(Expression<Func<CommentDto, bool>> filter = null);
-        GetCommentModel Get(Expression<Func<CommentDto, bool>> filter);
+        List<GetCommentModel> GetAll(Expression<Func<Comment, bool>> filter = null);
+        GetCommentModel Get(Expression<Func<Comment, bool>> filter);
         bool Add(CreateCommentModel createCommentModel);
         bool Update(int id, UpdateCommentModel updateCommentModel);
         bool Delete(DeleteCommentModel deleteCommentModel);
