@@ -14,7 +14,7 @@ namespace Blog.Application.Interfaces
     {
         List<GetCategoryModel> GetAll(Expression<Func<Category, bool>> filter = null);
         GetCategoryModel Get(Expression<Func<Category, bool>> filter);
-        GetCategoryTitleModel GetTitle(Expression<Func<Category, bool>> filter);
+        List<GetCategoryTitleModel> GetTitles(Expression<Func<Category, bool>> filter = null);
         bool Add(CreateCategoryModel createCategoryModel);
         bool Update(int id, UpdateCategoryModel updateCategoryModel);
         bool Delete(DeleteCategoryModel deleteCategoryModel);

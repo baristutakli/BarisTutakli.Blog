@@ -19,11 +19,11 @@ namespace BarisTutakli.Blog.Application
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-            //services.AddScoped<IPostService, PostService>();
-            //services.AddScoped<ITagService, TagRepository>();
-            //services.AddScoped<ICommentService, CommentService>();
-            //services.AddScoped<IUserService, UserService>();
-            //services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IPostService, PostService>();
+            services.AddScoped<ITagService, TagService>();
+            services.AddScoped<ICommentService, CommentService>();
+           // services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICategoryService, CategoryService>();
 
         }
     }

@@ -47,11 +47,11 @@ namespace Blog.Application.Concrete
              var categoryModel = _mapper.Map<GetCategoryModel>(category);
             return categoryModel;
         }
-        public GetCategoryTitleModel GetTitle(Expression<Func<Category, bool>> filter)
+        public List<GetCategoryTitleModel> GetTitles(Expression<Func<Category, bool>> filter=null)
         {
 
-            var category = _unitOfWork.Categories.Get(filter).Result;
-            var categoryModel = _mapper.Map<GetCategoryTitleModel>(category);
+            var category = _unitOfWork.Categories.GetAll(filter).Result;
+            var categoryModel = _mapper.Map<List<GetCategoryTitleModel>>(category);
             return categoryModel;
         }
 
