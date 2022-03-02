@@ -1,4 +1,5 @@
 using BarisTutakli.Blog.Persistence;
+using BarisTutakli.Blog.WebAPI.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +48,7 @@ namespace BarisTutakli.Blog.WebAPI
             }
 
             app.UseRouting();
+            app.UseCustomExceptionMiddleware();
 
             app.UseAuthorization();
 
