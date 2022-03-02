@@ -13,6 +13,6 @@ namespace BarisTutakli.Blog.DomainServices.Interfaces
         ICategoryRepository Categories { get; }
         ITagRepository Tags { get; }
         IUserRepository Users { get; }
-        Task<int> Complete();
+        int Complete();
     }
 }

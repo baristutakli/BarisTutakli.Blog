@@ -1,4 +1,4 @@
-﻿using BarisTutakli.Blog.Application.ViewModels.CategoryViewModels;
+﻿using BarisTutakli.Blog.Application.Models.CategoryModels;
 using FluentValidation;
 using System;
 using System.Collections.Generic;

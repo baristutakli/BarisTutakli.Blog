@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BarisTutakli.Blog.Application.ViewModels.UserViewModels
+namespace BarisTutakli.Blog.Application.Models.UserModels
 {
     [NotMapped]
-    public class LoginViewModel
+    public class LoginModel
     {
 
         [Required(ErrorMessage = "Email is required")]

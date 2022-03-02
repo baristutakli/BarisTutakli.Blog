@@ -1,4 +1,4 @@
-﻿using BarisTutakli.Blog.Application.ViewModels.PostViewModels;
+﻿using BarisTutakli.Blog.Application.Models.PostModels;
 using FluentValidation;
 using System;
 using System.Collections.Generic;

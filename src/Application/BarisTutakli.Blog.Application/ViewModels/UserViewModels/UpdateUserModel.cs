@@ -1,11 +1,11 @@
-﻿using BarisTutakli.Blog.Application.ViewModels.PostViewModels;
+﻿using BarisTutakli.Blog.Application.Models.PostModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BarisTutakli.Blog.Application.ViewModels.UserViewModels
+namespace BarisTutakli.Blog.Application.Models.UserModels
 {
     public class UpdateUserModel
     {

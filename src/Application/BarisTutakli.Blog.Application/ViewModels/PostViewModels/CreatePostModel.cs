@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BarisTutakli.Blog.Application.ViewModels.PostViewModels
+namespace BarisTutakli.Blog.Application.Models.PostModels
 
 {   
     public class CreatePostModel

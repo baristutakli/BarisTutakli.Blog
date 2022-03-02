@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace BarisTutakli.Blog.Application.ViewModels.CategoryViewModels
+namespace BarisTutakli.Blog.Application.Models.CategoryModels
 {
     public class UpdateCategoryModel
     {

@@ -1,5 +1,6 @@
 ﻿using BarisTutakli.Blog.DomainServices.Interfaces;
 using BarisTutakli.Blog.Persistence.Context;
+using BarisTutakli.Blog.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,11 @@ namespace BarisTutakli.Blog.Persistence.UnitOfWorks
         public UnitOfWork(UserDbContext context)
         {
             _dbcontext = context;
+            Comments = new CommentRepository(_dbcontext);
+            Tags = new TagRepository(context);
+            Categories = new CategoryRepository(_dbcontext);
+            Users = new UserRepository(_dbcontext);
+            Posts = new PostRepository(_dbcontext);
 
         }
         public int Complete()
@@ -34,11 +40,6 @@ namespace BarisTutakli.Blog.Persistence.UnitOfWorks
         public void Dispose()
         {
             _dbcontext.Dispose();
-        }
-
-        Task<int> IUnitOfWork.Complete()
-        {
-            throw new NotImplementedException();
         }
     }
 }

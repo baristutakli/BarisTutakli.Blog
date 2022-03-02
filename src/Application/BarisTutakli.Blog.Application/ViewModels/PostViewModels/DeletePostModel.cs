@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace BarisTutakli.Blog.Application.ViewModels.PostViewModels
+namespace BarisTutakli.Blog.Application.Models.PostModels
 {
     [NotMapped]
     public class DeletePostModel

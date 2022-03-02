@@ -1,13 +1,13 @@
 ﻿using BarisTutakli.Blog.Application.Dto;
-using BarisTutakli.Blog.Application.ViewModels.CategoryViewModels;
-using BarisTutakli.Blog.Application.ViewModels.TagViewModels;
+using BarisTutakli.Blog.Application.Models.CategoryModels;
+using BarisTutakli.Blog.Application.Models.TagModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BarisTutakli.Blog.Application.ViewModels.PostViewModels
+namespace BarisTutakli.Blog.Application.Models.PostModels
 {
    public class GetPostModel
     {

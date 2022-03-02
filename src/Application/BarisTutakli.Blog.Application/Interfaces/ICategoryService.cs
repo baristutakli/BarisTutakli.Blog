@@ -1,6 +1,6 @@
 ﻿
 using BarisTutakli.Blog.Application.Dto;
-using BarisTutakli.Blog.Application.ViewModels.CategoryViewModels;
+using BarisTutakli.Blog.Application.Models.CategoryModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace Blog.Application.Interfaces
 {
     public interface ICategoryService
     {
-        List<GetCategotyViewModel> GetAll(Expression<Func<CategoryDto, bool>> filter = null);
+        List<GetCategoryModel> GetAll(Expression<Func<CategoryDto, bool>> filter = null);
         GetCategoryTitleModel Get(Expression<Func<CategoryDto, bool>> filter);
         bool Add(CreateCategoryModel createCategoryModel);
         bool Update(int id, UpdateCategoryModel updateCategoryModel);

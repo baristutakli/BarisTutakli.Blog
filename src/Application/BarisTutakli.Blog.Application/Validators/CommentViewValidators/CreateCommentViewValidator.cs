@@ -1,4 +1,4 @@
-﻿using BarisTutakli.Blog.Application.ViewModels.CommentViewModels;
+﻿using BarisTutakli.Blog.Application.Models.CommentModels;
 using FluentValidation;
 using System;
 using System.Collections.Generic;

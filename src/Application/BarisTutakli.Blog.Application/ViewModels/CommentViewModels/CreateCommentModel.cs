@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using BarisTutakli.Blog.Application.Dto;
 
-namespace BarisTutakli.Blog.Application.ViewModels.CommentViewModels
+namespace BarisTutakli.Blog.Application.Models.CommentModels
 {
     public class CreateCommentModel
     {

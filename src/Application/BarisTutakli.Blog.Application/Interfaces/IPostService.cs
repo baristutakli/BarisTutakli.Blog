@@ -1,5 +1,5 @@
 ﻿using BarisTutakli.Blog.Application.Dto;
-using BarisTutakli.Blog.Application.ViewModels.PostViewModels;
+using BarisTutakli.Blog.Application.Models.PostModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

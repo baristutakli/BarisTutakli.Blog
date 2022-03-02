@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace BarisTutakli.Blog.Application.ViewModels.TagViewModels
+namespace BarisTutakli.Blog.Application.Models.TagModels
 {
     public class UpdateTagModel
     {

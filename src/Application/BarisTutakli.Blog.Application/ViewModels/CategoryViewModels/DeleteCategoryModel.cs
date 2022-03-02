@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BarisTutakli.Blog.Application.ViewModels.CategoryViewModels
+namespace BarisTutakli.Blog.Application.Models.CategoryModels
 {
     public class DeleteCategoryModel
     {

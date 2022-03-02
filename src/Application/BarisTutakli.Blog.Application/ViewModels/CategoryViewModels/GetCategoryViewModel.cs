@@ -1,13 +1,13 @@
-﻿using BarisTutakli.Blog.Application.ViewModels.PostViewModels;
+﻿using BarisTutakli.Blog.Application.Models.PostModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BarisTutakli.Blog.Application.ViewModels.CategoryViewModels
+namespace BarisTutakli.Blog.Application.Models.CategoryModels
 {
-    public class GetCategotyViewModel
+    public class GetCategoryModel
     {
 
  

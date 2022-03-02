@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-using BarisTutakli.Blog.Application.ViewModels.PostViewModels;
+using BarisTutakli.Blog.Application.Models.PostModels;
 
-namespace BarisTutakli.Blog.Application.ViewModels.TagViewModels
+namespace BarisTutakli.Blog.Application.Models.TagModels
 {
     public class GetTagModel
     {

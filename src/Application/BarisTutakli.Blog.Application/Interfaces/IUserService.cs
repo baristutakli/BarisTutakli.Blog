@@ -1,6 +1,6 @@
 ﻿using BarisTutakli.Blog.Application.Dto;
-using BarisTutakli.Blog.Application.ViewModels.TagViewModels;
-using BarisTutakli.Blog.Application.ViewModels.UserViewModels;
+using BarisTutakli.Blog.Application.Models.TagModels;
+using BarisTutakli.Blog.Application.Models.UserModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

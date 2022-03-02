@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BarisTutakli.Blog.Application.ViewModels.CategoryViewModels
+namespace BarisTutakli.Blog.Application.Models.CategoryModels
 {
     [NotMapped]
     public class GetCategoryTitleModel

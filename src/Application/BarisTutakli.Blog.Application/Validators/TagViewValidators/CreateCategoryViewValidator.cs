@@ -1,5 +1,5 @@
 ﻿
-using BarisTutakli.Blog.Application.ViewModels.TagViewModels;
+using BarisTutakli.Blog.Application.Models.TagModels;
 using FluentValidation;
 using System;
 using System.Collections.Generic;

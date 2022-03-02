@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-namespace BarisTutakli.Blog.Application.ViewModels.UserViewModels
+namespace BarisTutakli.Blog.Application.Models.UserModels
 {
     public class CreateUserModel
     {
