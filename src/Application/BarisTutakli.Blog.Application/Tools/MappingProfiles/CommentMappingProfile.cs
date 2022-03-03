@@ -14,8 +14,8 @@ namespace BarisTutakli.Blog.Application.Tools.MappingProfiles
         public CommentMappingProfile()
         {
             CreateMap<CreateCommentModel, Comment>().ForMember(dest=>dest.CreatedAt,opt=>opt.MapFrom(src=>DateTime.Parse(DateTime.Now.ToShortDateString())));
-            CreateMap<Comment, GetCommentModel>().ForMember(dest=>dest.Post,opt=>opt.MapFrom(src=>src.Post))
-                .ForPath(dest=>dest.Post,opt=>opt.MapFrom(src=>src.Post));
+            CreateMap<Comment, GetCommentModel>().ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User));
+               
         }
     }
 }

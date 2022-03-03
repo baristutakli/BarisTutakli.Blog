@@ -26,5 +26,9 @@ namespace BarisTutakli.Blog.Persistence.Repositories
         {
             return filter == null ? await _dbcontext.Categories.Include(c => c.Posts).ToListAsync() : await _dbcontext.Categories.Include(c => c.Posts).Where(filter).ToListAsync();
         }
+        public async Task<List<Category>> GetTitles(Expression<Func<Category, bool>> filter = null)
+        {
+            return filter == null ? await _dbcontext.Categories.ToListAsync() : await _dbcontext.Categories.Where(filter).ToListAsync();
+        }
     }
 }

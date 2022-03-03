@@ -12,7 +12,6 @@ namespace BarisTutakli.Blog.Application.Models.CommentModels
     {
 
         public UserDto User { get; set; }
-        public GetPostModel Post { get; set; }
         public string Title { get; set; }
         public DateTime PublishedAt { get; set; }
         public string Body { get; set; }

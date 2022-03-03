@@ -1,5 +1,7 @@
 using BarisTutakli.Blog.Application;
+using BarisTutakli.Blog.Infrastructure;
 using BarisTutakli.Blog.Persistence;
+using BarisTutakli.Blog.WebAPI.Common.Loggers;
 using BarisTutakli.Blog.WebAPI.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,8 +40,12 @@ namespace BarisTutakli.Blog.WebAPI
             services.AddPersistenceServices(Configuration);
             // Application leyer dependency resolver
             services.AddApplicationServices();
-           
-            
+            // RabittMQService 
+            //services.AddInfrastructureServices(Configuration);
+
+            services.AddSingleton<ILoggerService, ConsoleLogger>();
+
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

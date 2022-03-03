@@ -10,6 +10,6 @@ namespace BarisTutakli.Blog.DomainServices.Interfaces
 {
     public interface ICategoryRepository : IRepository<Category>
     {
-    
+        Task<List<Category>> GetTitles(Expression<Func<Category, bool>> filter = null);
     }
 }

@@ -50,7 +50,7 @@ namespace Blog.Application.Concrete
         public List<GetCategoryTitleModel> GetTitles(Expression<Func<Category, bool>> filter=null)
         {
 
-            var category = _unitOfWork.Categories.GetAll(filter).Result;
+            var category = _unitOfWork.Categories.GetTitles(filter).Result;
             var categoryModel = _mapper.Map<List<GetCategoryTitleModel>>(category);
             return categoryModel;
         }

@@ -20,12 +20,12 @@ namespace BarisTutakli.Blog.Persistence.Repositories
         }
         public async override Task<Comment> Get(Expression<Func<Comment, bool>> filter)
         {
-            return await _dbcontext.Comments.Include(c=>c.Post).SingleOrDefaultAsync(filter);
+            return await _dbcontext.Comments.Include(c=>c.User).SingleOrDefaultAsync(filter);
         }
 
         public async override Task<List<Comment>> GetAll(Expression<Func<Comment, bool>> filter = null)
         {
-            return filter == null ? await _dbcontext.Comments.Include(c => c.Post).ToListAsync() : await _dbcontext.Comments.Include(c => c.Post).Where(filter).ToListAsync();
+            return filter == null ? await _dbcontext.Comments.Include(c => c.User).ToListAsync() : await _dbcontext.Comments.Include(c => c.User).Where(filter).ToListAsync();
         }
     }
 }
