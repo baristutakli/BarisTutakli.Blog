@@ -29,7 +29,7 @@ namespace BarisTutakli.Blog.WebAPI.Middleware
             try
             {
 
-                string message = $"[Request HTTP] {context.Request.Method } -- {context.Request.Path}";
+                string message = $"[Request HTTP] {context.Request.Method } -- {context.Request.Path}\n";
 
                 _loggerService.Log(message);
 
@@ -62,7 +62,7 @@ namespace BarisTutakli.Blog.WebAPI.Middleware
 
                 await _next(context);
                 watch.Stop();
-                message = $"[Response HTTP] {context.Request.Method} -- {context.Request.Path} responded {context.Response.StatusCode} in {watch.Elapsed.TotalMilliseconds}ms";
+                message = $"[Response HTTP] {context.Request.Method} -- {context.Request.Path} responded {context.Response.StatusCode} in {watch.Elapsed.TotalMilliseconds}ms\n";
 
 
                 _loggerService.Log(message);

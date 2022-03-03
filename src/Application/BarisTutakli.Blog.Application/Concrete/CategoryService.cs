@@ -27,7 +27,6 @@ namespace Blog.Application.Concrete
             _unitOfWork.Categories.Add(category);
             var result = _unitOfWork.Complete();
             return result > 0 ? true : false; ;
-
         }
 
 
@@ -59,6 +58,7 @@ namespace Blog.Application.Concrete
         {
             var category = _unitOfWork.Categories.GetAll(filter).Result;
             var categoryModel = _mapper.Map<List<GetCategoryModel>>(category);
+
             return categoryModel;
         }
 

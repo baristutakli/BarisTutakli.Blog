@@ -43,7 +43,7 @@ namespace BarisTutakli.Blog.WebAPI
             // RabittMQService 
             //services.AddInfrastructureServices(Configuration);
 
-            services.AddSingleton<ILoggerService, ConsoleLogger>();
+            services.AddSingleton<ILoggerService, FileLogger>();
 
         
         }
