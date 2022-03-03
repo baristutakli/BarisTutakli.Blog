@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BarisTutakli.Blog.Application.Models.UserModels
+namespace BarisTutakli.Blog.Application.ViewModels.UserViewModels
 {
     public class UpdateUserModel
     {
