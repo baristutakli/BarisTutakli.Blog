@@ -25,8 +25,6 @@ namespace BarisTutakli.Blog.Application.Concrete
 
 
         }
-
-
         public async Task<IdentityResult> CreateUser(CreateUserModel model)
         {
             User user = new User()

@@ -14,7 +14,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
     [ApiController]
     public class CommentsController : ControllerBase
     {
-        private ICommentService _commentService;
+        private readonly ICommentService _commentService;
 
         public CommentsController(ICommentService commentService)
         {
@@ -48,7 +48,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] CreateCommentModel createCommentModel)
         {
-            return _commentService.Add(createCommentModel) == true ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _commentService.Add(createCommentModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // PUT api/<CategoriesController>/5
@@ -56,7 +56,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Put(int id, [FromBody] UpdateCommentModel updateCommentModel)
         {
 
-            return _commentService.Update(id, updateCommentModel) == true ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _commentService.Update(id, updateCommentModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // DELETE api/<CategoriesController>/5
@@ -64,7 +64,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Delete(int id)
         {
             DeleteCommentModel deleteComment = new DeleteCommentModel() { Id = id };
-            return _commentService.Delete(deleteComment) == true ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _commentService.Delete(deleteComment) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

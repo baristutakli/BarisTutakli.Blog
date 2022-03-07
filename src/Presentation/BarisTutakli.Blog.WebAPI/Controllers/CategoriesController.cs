@@ -14,7 +14,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private ICategoryService _categoryService;
+        private readonly ICategoryService _categoryService;
 
         public CategoriesController(ICategoryService categoryService)
         {
@@ -23,7 +23,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         }
         // GET: api/<CategoriesController>
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
             var categories = _categoryService.GetAll();
             return Ok(JsonConvert.SerializeObject(categories, Formatting.Indented, new JsonSerializerSettings()
@@ -58,7 +58,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] CreateCategoryModel createCategoryModel)
         {
-            return _categoryService.Add(createCategoryModel) == true ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _categoryService.Add(createCategoryModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // PUT api/<CategoriesController>/5
@@ -66,7 +66,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Put(int id, [FromBody] UpdateCategoryModel updateCategoryModel)
         {
 
-            return _categoryService.Update(id, updateCategoryModel) == true ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _categoryService.Update(id, updateCategoryModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // DELETE api/<CategoriesController>/5
@@ -74,7 +74,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Delete(int id)
         {
             DeleteCategoryModel deleteCategory = new DeleteCategoryModel() { Id = id };
-            return _categoryService.Delete(deleteCategory) == true ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _categoryService.Delete(deleteCategory) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

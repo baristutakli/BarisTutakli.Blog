@@ -2,6 +2,7 @@ using BarisTutakli.Blog.Application;
 using BarisTutakli.Blog.Infrastructure;
 using BarisTutakli.Blog.Persistence;
 using BarisTutakli.Blog.WebAPI.Common.Loggers;
+using BarisTutakli.Blog.WebAPI.Common.Settings;
 using BarisTutakli.Blog.WebAPI.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,8 +45,9 @@ namespace BarisTutakli.Blog.WebAPI
             //services.AddInfrastructureServices(Configuration);
 
             services.AddSingleton<ILoggerService, FileLogger>();
+            services.Configure<MongoDatabaseSettings>(
+               Configuration.GetSection("LoggingDatabase"));
 
-        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

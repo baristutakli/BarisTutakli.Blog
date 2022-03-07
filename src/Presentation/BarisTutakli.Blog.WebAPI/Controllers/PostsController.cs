@@ -14,7 +14,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private IPostService _postService;
+        private readonly IPostService _postService;
 
         public PostsController(IPostService postService)
         {
@@ -48,7 +48,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] CreatePostModel createPostModel)
         {
-            return _postService.Add(createPostModel) == true ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _postService.Add(createPostModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // PUT api/<CategoriesController>/5
@@ -56,7 +56,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Put(int id, [FromBody] UpdatePostModel updatePostModel)
         {
 
-            return _postService.Update(id, updatePostModel) == true ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _postService.Update(id, updatePostModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // DELETE api/<CategoriesController>/5
@@ -64,7 +64,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Delete(int id)
         {
             DeletePostModel deletePost = new DeletePostModel() { Id = id };
-            return _postService.Delete(deletePost) == true ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _postService.Delete(deletePost) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

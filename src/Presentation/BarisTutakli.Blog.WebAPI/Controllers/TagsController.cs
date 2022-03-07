@@ -14,7 +14,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
     [ApiController]
     public class TagsController : ControllerBase
     {
-        private ITagService _tagService;
+        private readonly ITagService _tagService;
 
         public TagsController(ITagService tagService)
         {
@@ -48,7 +48,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] CreateTagModel createTagModel)
         {
-            return _tagService.Add(createTagModel) == true ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _tagService.Add(createTagModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // PUT api/<CategoriesController>/5
@@ -56,7 +56,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Put(int id, [FromBody] UpdateTagModel updateTagModel)
         {
 
-            return _tagService.Update(id, updateTagModel) == true ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _tagService.Update(id, updateTagModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // DELETE api/<CategoriesController>/5
@@ -64,7 +64,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Delete(int id)
         {
             DeleteTagModel deleteTag = new DeleteTagModel() { Id = id };
-            return _tagService.Delete(deleteTag) == true ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _tagService.Delete(deleteTag) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

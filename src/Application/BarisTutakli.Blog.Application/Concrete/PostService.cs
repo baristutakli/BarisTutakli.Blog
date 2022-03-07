@@ -25,7 +25,7 @@ namespace Blog.Application.Concrete
             var post = _mapper.Map<Post>(createPostModel);
             _unitOfWork.Posts.Add(post);
             var result = _unitOfWork.Complete();
-            return result > 0 ? true : false; ;
+            return result > 0; 
         }
 
         public bool Delete(DeletePostModel deletePostModel)
@@ -33,7 +33,7 @@ namespace Blog.Application.Concrete
             var post = _unitOfWork.Posts.GetById(deletePostModel.Id).Result;
             _unitOfWork.Posts.Delete(post);
             var result = _unitOfWork.Complete();
-            return result > 0 ? true : false;
+            return result > 0;
         }
 
         public GetPostModel Get(Expression<Func<Post, bool>> filter)
@@ -57,7 +57,7 @@ namespace Blog.Application.Concrete
             updatePostModel.Id = id;
             _unitOfWork.Posts.Delete(post);
             var result = _unitOfWork.Complete();
-            return result > 0 ? true : false;
+            return result > 0;
         }
     }
 }

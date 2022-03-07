@@ -25,7 +25,7 @@ namespace Blog.Application.Concrete
             var tag = _mapper.Map<Tag>(createTagModel);
             _unitOfWork.Tags.Add(tag);
             var result = _unitOfWork.Complete();
-            return result > 0 ? true : false; ;
+            return result > 0  ;
         }
 
         public bool Delete(DeleteTagModel deleteTagModel)
@@ -33,7 +33,7 @@ namespace Blog.Application.Concrete
             var tag = _unitOfWork.Tags.GetById(deleteTagModel.Id).Result;
             _unitOfWork.Tags.Delete(tag);
             var result = _unitOfWork.Complete();
-            return result > 0 ? true : false;
+            return result > 0 ;
         }
 
         public GetTagModel Get(Expression<Func<Tag, bool>> filter)
@@ -57,7 +57,7 @@ namespace Blog.Application.Concrete
             updateTagModel.Id = id;
             _unitOfWork.Tags.Delete(tag);
             var result = _unitOfWork.Complete();
-            return result > 0 ? true : false;
+            return result > 0;
         }
     }
 }

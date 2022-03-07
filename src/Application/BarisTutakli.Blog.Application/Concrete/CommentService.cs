@@ -25,7 +25,7 @@ namespace Blog.Application.Concrete
            var comment= _mapper.Map<Comment>(createCommentModel);
             _unitOfWork.Comments.Add(comment);
             var result = _unitOfWork.Complete();
-            return result > 0 ? true : false; ;
+            return result > 0;
         }
 
         public bool Delete(DeleteCommentModel deleteCommentModel)
@@ -33,7 +33,7 @@ namespace Blog.Application.Concrete
             var comment = _unitOfWork.Comments.GetById(deleteCommentModel.Id).Result;
             _unitOfWork.Comments.Delete(comment);
             var result = _unitOfWork.Complete();
-            return result > 0 ? true : false;
+            return result > 0;
         }
 
         public GetCommentModel Get(Expression<Func<Comment, bool>> filter)
@@ -57,7 +57,7 @@ namespace Blog.Application.Concrete
             updateCommentModel.Id = id;
             _unitOfWork.Comments.Delete(comment);
             var result = _unitOfWork.Complete();
-            return result > 0 ? true : false;
+            return result > 0;
         }
     }
 }
