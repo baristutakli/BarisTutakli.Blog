@@ -46,5 +46,24 @@ namespace BarisTutakli.Blog.ApplicationTest
             Assert.IsType < Category>(category);
             Assert.True(affectedRows > 0);
         }
+
+        [Fact]
+        public void Get_Category_ReturnsGetCategoryModel()
+        {
+            //Arrange
+            GetCategoryModel categoryModel;
+            var category = _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Categories.Get(c => c.Id == 1).Result).Returns(new Category() { Id = 1, Body = "asdasda", Title = "title", MetaTitle="aaaaa" , CreatedAt= DateTime.Parse(DateTime.Now.ToShortDateString()),IsActive=true });
+            
+            // Act
+
+            _unitOfWorkMock.Object.Categories.Get(c=>c.Id==1);
+            categoryModel = _mapper.Map<GetCategoryModel>(category);
+
+            //Assert
+            Assert.IsType<GetCategoryModel>(categoryModel);
+            Assert.NotNull(category);
+            Assert.NotNull(categoryModel);
+            
+        }
     }
 }
