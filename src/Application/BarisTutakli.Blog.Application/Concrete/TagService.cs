@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BarisTutakli.Blog.Application.Models.TagModels;
+using BarisTutakli.Blog.Application.Wrappers;
 using BarisTutakli.Blog.Domain.Entities;
 using BarisTutakli.Blog.DomainServices.Interfaces;
 using Blog.Application.Interfaces;
@@ -20,44 +21,50 @@ namespace Blog.Application.Concrete
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public bool Add(CreateTagModel createTagModel)
+        public Response Add(CreateTagModel createTagModel)
         {
             var tag = _mapper.Map<Tag>(createTagModel);
             _unitOfWork.Tags.Add(tag);
             var result = _unitOfWork.Complete();
-            return result > 0  ;
+            return result > 0 ? new Response() { Status = "Success" } : new Response() { Status = "Failed" };
         }
 
-        public bool Delete(DeleteTagModel deleteTagModel)
+        public Response Delete(DeleteTagModel deleteTagModel)
         {
             var tag = _unitOfWork.Tags.GetById(deleteTagModel.Id).Result;
             _unitOfWork.Tags.Delete(tag);
             var result = _unitOfWork.Complete();
-            return result > 0 ;
+            return result > 0 ? new Response() { Status = "Success" } : new Response() { Status = "Failed" };
         }
 
-        public GetTagModel Get(Expression<Func<Tag, bool>> filter)
+        public Response<GetTagModel> Get(Expression<Func<Tag, bool>> filter)
         {
             var tag = _unitOfWork.Tags.Get(filter).Result;
             var tagModel = _mapper.Map<GetTagModel>(tag);
-            return tagModel;
+            Response<GetTagModel> response = new Response<GetTagModel>();
+            response.Data = tagModel ;
+            response.Succeeded = true;
+            return response;
         }
 
 
-        public List<GetTagModel> GetAll(Expression<Func<Tag, bool>> filter = null)
+        public Response<List<GetTagModel>> GetAll(Expression<Func<Tag, bool>> filter = null)
         {
             var tag = _unitOfWork.Tags.GetAll(filter).Result;
             var tagModel = _mapper.Map<List<GetTagModel>>(tag);
-            return tagModel;
+            Response<List<GetTagModel>> response = new Response<List<GetTagModel>>();
+            response.Data = tagModel ;
+            response.Succeeded = true;
+            return response;
         }
 
-        public bool Update(int id, UpdateTagModel updateTagModel)
+        public Response Update(int id, UpdateTagModel updateTagModel)
         {
             var tag = _unitOfWork.Tags.GetById(id).Result;
             updateTagModel.Id = id;
             _unitOfWork.Tags.Delete(tag);
             var result = _unitOfWork.Complete();
-            return result > 0;
+           return result > 0 ? new Response() { Status = "Success" } : new Response() { Status = "Failed" };
         }
     }
 }

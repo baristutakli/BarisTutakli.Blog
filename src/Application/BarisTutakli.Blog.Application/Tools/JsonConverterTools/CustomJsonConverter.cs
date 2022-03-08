@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace BarisTutakli.Blog.Application.Tools.JsonConverterTools
 {
-    public static class CustomJsonConverter<T> where T:class
+    public  class CustomJsonConverter<T> where T:class
     {
         public static string ConvertResponse(Response<T> response)
         {
+
             return JsonConvert.SerializeObject(response, Formatting.Indented, new JsonSerializerSettings()
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore

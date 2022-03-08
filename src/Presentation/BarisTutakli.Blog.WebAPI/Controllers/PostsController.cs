@@ -1,4 +1,5 @@
 ﻿using BarisTutakli.Blog.Application.Models.PostModels;
+using BarisTutakli.Blog.Application.Tools.JsonConverterTools;
 using Blog.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +26,8 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var categories = _postService.GetAll();
-            return Ok(JsonConvert.SerializeObject(categories, Formatting.Indented, new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            }));
+            var posts = _postService.GetAll();
+            return Ok(CustomJsonConverter<List<GetPostModel>>.ConvertResponse(posts));
         }
 
         // GET api/<CategoriesController>/5
@@ -38,17 +36,14 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         {
             var post = _postService.Get(c => c.Id == id);
 
-            return Ok(JsonConvert.SerializeObject(post, Formatting.Indented, new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            }));
+            return Ok(CustomJsonConverter<GetPostModel>.ConvertResponse(post));
         }
 
         // POST api/<CategoriesController>
         [HttpPost]
         public IActionResult Post([FromBody] CreatePostModel createPostModel)
         {
-            return _postService.Add(createPostModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _postService.Add(createPostModel).Status == "Success" ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // PUT api/<CategoriesController>/5
@@ -56,7 +51,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Put(int id, [FromBody] UpdatePostModel updatePostModel)
         {
 
-            return _postService.Update(id, updatePostModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _postService.Update(id, updatePostModel).Status == "Success" ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // DELETE api/<CategoriesController>/5
@@ -64,7 +59,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Delete(int id)
         {
             DeletePostModel deletePost = new DeletePostModel() { Id = id };
-            return _postService.Delete(deletePost) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _postService.Delete(deletePost).Status == "Success" ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

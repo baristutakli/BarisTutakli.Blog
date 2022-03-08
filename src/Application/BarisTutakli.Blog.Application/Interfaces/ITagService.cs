@@ -1,6 +1,7 @@
 ﻿
 using BarisTutakli.Blog.Application.Dto;
 using BarisTutakli.Blog.Application.Models.TagModels;
+using BarisTutakli.Blog.Application.Wrappers;
 using BarisTutakli.Blog.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,10 @@ namespace Blog.Application.Interfaces
 {
     public interface ITagService
     {
-        List<GetTagModel> GetAll(Expression<Func<Tag, bool>> filter = null);
-        GetTagModel Get(Expression<Func<Tag, bool>> filter);
-        bool Add(CreateTagModel createTagModel);
-        bool Update(int id, UpdateTagModel updateTagModel);
-        bool Delete(DeleteTagModel deleteTagModel);
+        Response<List<GetTagModel>> GetAll(Expression<Func<Tag, bool>> filter = null);
+        Response<GetTagModel> Get(Expression<Func<Tag, bool>> filter);
+        Response Add(CreateTagModel createTagModel);
+        Response Update(int id, UpdateTagModel updateTagModel);
+        Response Delete(DeleteTagModel deleteTagModel);
     }
 }

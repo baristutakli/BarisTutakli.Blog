@@ -7,23 +7,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{82B2C8B3-5BF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{8CE8B7B6-AB6E-498B-A23D-EA3BC82D65D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarisTutakli.Blog.Domain", "src\Core\BarisTutakli.Blog.Domain\BarisTutakli.Blog.Domain.csproj", "{19216F44-4E9A-41CD-BA2B-16320361556E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarisTutakli.Blog.Domain", "src\Core\BarisTutakli.Blog.Domain\BarisTutakli.Blog.Domain.csproj", "{19216F44-4E9A-41CD-BA2B-16320361556E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{249FCB4B-1CCC-4F96-B91E-10C52C835E48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarisTutakli.Blog.DomainServices", "src\Core\BarisTutakli.Blog.DomainServices\BarisTutakli.Blog.DomainServices.csproj", "{BE1BDC54-E737-4B29-986C-18BE2619E32F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarisTutakli.Blog.DomainServices", "src\Core\BarisTutakli.Blog.DomainServices\BarisTutakli.Blog.DomainServices.csproj", "{BE1BDC54-E737-4B29-986C-18BE2619E32F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarisTutakli.Blog.Persistence", "src\Infrastructure\BarisTutakli.Blog.Persistence\BarisTutakli.Blog.Persistence.csproj", "{323BD79C-9D30-40C7-B027-1AE667B31922}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarisTutakli.Blog.Persistence", "src\Infrastructure\BarisTutakli.Blog.Persistence\BarisTutakli.Blog.Persistence.csproj", "{323BD79C-9D30-40C7-B027-1AE667B31922}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarisTutakli.Blog.Infrastructure", "src\Infrastructure\BarisTutakli.Blog.Infrastructure\BarisTutakli.Blog.Infrastructure.csproj", "{CB8894DE-789A-4138-B0F9-853D9E186879}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarisTutakli.Blog.Infrastructure", "src\Infrastructure\BarisTutakli.Blog.Infrastructure\BarisTutakli.Blog.Infrastructure.csproj", "{CB8894DE-789A-4138-B0F9-853D9E186879}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{3907772C-D69B-4542-A3AF-5A4FEF809734}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarisTutakli.Blog.WebAPI", "src\Presentation\BarisTutakli.Blog.WebAPI\BarisTutakli.Blog.WebAPI.csproj", "{AF2CACC7-5BBB-4DE1-83D3-7CBFCAA16D0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarisTutakli.Blog.WebAPI", "src\Presentation\BarisTutakli.Blog.WebAPI\BarisTutakli.Blog.WebAPI.csproj", "{AF2CACC7-5BBB-4DE1-83D3-7CBFCAA16D0E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{76D376B0-884A-40A4-A1B0-772EA5F0742D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarisTutakli.Blog.Application", "src\Application\BarisTutakli.Blog.Application\BarisTutakli.Blog.Application.csproj", "{4D60F95D-E3E4-4EE7-A2E5-41B7373AE124}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarisTutakli.Blog.Application", "src\Application\BarisTutakli.Blog.Application\BarisTutakli.Blog.Application.csproj", "{4D60F95D-E3E4-4EE7-A2E5-41B7373AE124}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{3A211733-53D2-4FAB-AF1E-01C3FC741065}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarisTutakli.Blog.ApplicationTest", "UnitTests\BarisTutakli.Blog.ApplicationTest\BarisTutakli.Blog.ApplicationTest.csproj", "{B4265519-00AA-4F36-B4B7-E35B411605E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +59,10 @@ Global
 		{4D60F95D-E3E4-4EE7-A2E5-41B7373AE124}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D60F95D-E3E4-4EE7-A2E5-41B7373AE124}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D60F95D-E3E4-4EE7-A2E5-41B7373AE124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4265519-00AA-4F36-B4B7-E35B411605E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4265519-00AA-4F36-B4B7-E35B411605E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4265519-00AA-4F36-B4B7-E35B411605E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4265519-00AA-4F36-B4B7-E35B411605E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +78,8 @@ Global
 		{AF2CACC7-5BBB-4DE1-83D3-7CBFCAA16D0E} = {3907772C-D69B-4542-A3AF-5A4FEF809734}
 		{76D376B0-884A-40A4-A1B0-772EA5F0742D} = {82B2C8B3-5BFD-4B66-86B1-38E6D63365F5}
 		{4D60F95D-E3E4-4EE7-A2E5-41B7373AE124} = {76D376B0-884A-40A4-A1B0-772EA5F0742D}
+		{3A211733-53D2-4FAB-AF1E-01C3FC741065} = {82B2C8B3-5BFD-4B66-86B1-38E6D63365F5}
+		{B4265519-00AA-4F36-B4B7-E35B411605E4} = {3A211733-53D2-4FAB-AF1E-01C3FC741065}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {01B1FA27-38B7-47C8-A53C-BF3E0FE461B7}

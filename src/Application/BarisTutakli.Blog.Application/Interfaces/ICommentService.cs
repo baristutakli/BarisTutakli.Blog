@@ -1,4 +1,4 @@
-﻿using BarisTutakli.Blog.Application.Dto;
+﻿using BarisTutakli.Blog.Application.Wrappers;
 using BarisTutakli.Blog.Application.Models.CommentModels;
 using BarisTutakli.Blog.Domain.Entities;
 using System;
@@ -11,10 +11,10 @@ namespace Blog.Application.Interfaces
 {
     public interface ICommentService
     {
-        List<GetCommentModel> GetAll(Expression<Func<Comment, bool>> filter = null);
-        GetCommentModel Get(Expression<Func<Comment, bool>> filter);
-        bool Add(CreateCommentModel createCommentModel);
-        bool Update(int id, UpdateCommentModel updateCommentModel);
-        bool Delete(DeleteCommentModel deleteCommentModel);
+        Response<List<GetCommentModel>> GetAll(Expression<Func<Comment, bool>> filter = null);
+        Response<GetCommentModel> Get(Expression<Func<Comment, bool>> filter);
+        Response Add(CreateCommentModel createCommentModel);
+        Response Update(int id, UpdateCommentModel updateCommentModel);
+        Response Delete(DeleteCommentModel deleteCommentModel);
     }
 }
