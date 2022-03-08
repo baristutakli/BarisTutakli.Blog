@@ -9,6 +9,7 @@ namespace BarisTutakli.Blog.WebAPI.Common.Loggers
     {
         public void Log(string message)
         {
+            Console.WriteLine("Write");
             throw new NotImplementedException();
         }
     }

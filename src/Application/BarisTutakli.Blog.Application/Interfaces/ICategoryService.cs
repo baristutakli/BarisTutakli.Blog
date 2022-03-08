@@ -1,6 +1,7 @@
 ﻿
 using BarisTutakli.Blog.Application.Dto;
 using BarisTutakli.Blog.Application.Models.CategoryModels;
+using BarisTutakli.Blog.Application.Wrappers;
 using BarisTutakli.Blog.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,11 @@ namespace Blog.Application.Interfaces
 {
     public interface ICategoryService
     {
-        List<GetCategoryModel> GetAll(Expression<Func<Category, bool>> filter = null);
-        GetCategoryModel Get(Expression<Func<Category, bool>> filter);
-        List<GetCategoryTitleModel> GetTitles(Expression<Func<Category, bool>> filter = null);
-        bool Add(CreateCategoryModel createCategoryModel);
-        bool Update(int id, UpdateCategoryModel updateCategoryModel);
-        bool Delete(DeleteCategoryModel deleteCategoryModel);
+        Response<List<GetCategoryModel>> GetAll(Expression<Func<Category, bool>> filter = null);
+        Response<GetCategoryModel> Get(Expression<Func<Category, bool>> filter);
+        Response<List<GetCategoryTitleModel>> GetTitles(Expression<Func<Category, bool>> filter = null);
+        Response Add(CreateCategoryModel createCategoryModel);
+        Response Update(int id, UpdateCategoryModel updateCategoryModel);
+        Response Delete(DeleteCategoryModel deleteCategoryModel);
     }
 }
