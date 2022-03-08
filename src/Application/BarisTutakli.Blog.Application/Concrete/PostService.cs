@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BarisTutakli.Blog.Application.Models.PostModels;
+using BarisTutakli.Blog.Application.Wrappers;
 using BarisTutakli.Blog.Domain.Entities;
 using BarisTutakli.Blog.DomainServices.Interfaces;
 using Blog.Application.Interfaces;
@@ -20,44 +21,50 @@ namespace Blog.Application.Concrete
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public bool Add(CreatePostModel createPostModel)
+        public Response Add(CreatePostModel createPostModel)
         {
             var post = _mapper.Map<Post>(createPostModel);
             _unitOfWork.Posts.Add(post);
             var result = _unitOfWork.Complete();
-            return result > 0; 
+                  return result > 0 ? new Response() { Status = "Success" } : new Response() { Status = "Failed" };
         }
 
-        public bool Delete(DeletePostModel deletePostModel)
+        public Response Delete(DeletePostModel deletePostModel)
         {
             var post = _unitOfWork.Posts.GetById(deletePostModel.Id).Result;
             _unitOfWork.Posts.Delete(post);
             var result = _unitOfWork.Complete();
-            return result > 0;
+                return result > 0 ? new Response() { Status = "Success" } : new Response() { Status = "Failed" };
         }
 
-        public GetPostModel Get(Expression<Func<Post, bool>> filter)
+        public Response<GetPostModel> Get(Expression<Func<Post, bool>> filter)
         {
             var post = _unitOfWork.Posts.Get(filter).Result;
             var postModel = _mapper.Map<GetPostModel>(post);
-            return postModel;
+            Response<GetPostModel> response = new Response<GetPostModel>();
+            response.Data = postModel;
+            response.Succeeded = true;
+            return response;
         }
 
 
-        public List<GetPostModel> GetAll(Expression<Func<Post, bool>> filter = null)
+        public Response<List<GetPostModel>> GetAll(Expression<Func<Post, bool>> filter = null)
         {
             var post = _unitOfWork.Posts.GetAll(filter).Result;
             var postModel = _mapper.Map<List<GetPostModel>>(post);
-            return postModel;
+            Response<List<GetPostModel>> response = new Response<List<GetPostModel>>();
+            response.Data = postModel;
+            response.Succeeded = true;
+            return response;
         }
 
-        public bool Update(int id, UpdatePostModel updatePostModel)
+        public Response Update(int id, UpdatePostModel updatePostModel)
         {
             var post = _unitOfWork.Posts.GetById(id).Result;
             updatePostModel.Id = id;
             _unitOfWork.Posts.Delete(post);
             var result = _unitOfWork.Complete();
-            return result > 0;
+                  return result > 0 ? new Response() { Status = "Success" } : new Response() { Status = "Failed" };
         }
     }
 }
