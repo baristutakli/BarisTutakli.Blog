@@ -1,4 +1,5 @@
 ﻿using BarisTutakli.Blog.Application.Models.CategoryModels;
+using BarisTutakli.Blog.Application.Tools.JsonConverterTools;
 using Blog.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,20 +27,14 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult GetAll()
         {
             var categories = _categoryService.GetAll();
-            return Ok(JsonConvert.SerializeObject(categories, Formatting.Indented, new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            }));
+            return Ok(CustomJsonConverter<List<GetCategoryModel>>.ConvertResponse(categories));
         }
         [HttpGet("titles")]
         //[Route("/titles")]
         public IActionResult GetTitles()
         {
             var categories = _categoryService.GetTitles();
-            return Ok(JsonConvert.SerializeObject(categories, Formatting.Indented, new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            }));
+            return Ok(CustomJsonConverter<List<GetCategoryTitleModel>>.ConvertResponse(categories));
         }
 
         // GET api/<CategoriesController>/5
@@ -48,17 +43,14 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         {
             var category = _categoryService.Get(c=>c.Id==id);
 
-            return Ok(JsonConvert.SerializeObject(category, Formatting.Indented, new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            }));
+            return Ok(CustomJsonConverter<GetCategoryModel>.ConvertResponse(category));
         }
 
         // POST api/<CategoriesController>
         [HttpPost]
         public IActionResult Post([FromBody] CreateCategoryModel createCategoryModel)
         {
-            return _categoryService.Add(createCategoryModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _categoryService.Add(createCategoryModel).Status=="Success" ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // PUT api/<CategoriesController>/5
@@ -66,7 +58,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Put(int id, [FromBody] UpdateCategoryModel updateCategoryModel)
         {
 
-            return _categoryService.Update(id, updateCategoryModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _categoryService.Update(id, updateCategoryModel).Status=="Success" ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // DELETE api/<CategoriesController>/5
@@ -74,7 +66,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Delete(int id)
         {
             DeleteCategoryModel deleteCategory = new DeleteCategoryModel() { Id = id };
-            return _categoryService.Delete(deleteCategory) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _categoryService.Delete(deleteCategory).Status == "Success" ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BarisTutakli.Blog.Application.Dto;
 using BarisTutakli.Blog.Application.Models.CategoryModels;
+using BarisTutakli.Blog.Application.Wrappers;
 using BarisTutakli.Blog.Domain.Entities;
 using BarisTutakli.Blog.DomainServices.Interfaces;
 using Blog.Application.Interfaces;
@@ -21,56 +22,64 @@ namespace Blog.Application.Concrete
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public bool Add(CreateCategoryModel createCategoryModel)
+        public Response Add(CreateCategoryModel createCategoryModel)
         {
             var category = _mapper.Map<Category>(createCategoryModel);
             _unitOfWork.Categories.Add(category);
             var result = _unitOfWork.Complete();
-            return result > 0 ? true : false; ;
+            return result > 0 ? new Response() { Status = "Success" } : new Response() { Status = "Failed" };
         }
 
 
-        public bool Delete(DeleteCategoryModel deleteCategoryModel)
+        public Response Delete(DeleteCategoryModel deleteCategoryModel)
         {
             var category = _unitOfWork.Categories.GetById(deleteCategoryModel.Id).Result;
             _unitOfWork.Categories.Delete(category);
             var result = _unitOfWork.Complete();
-            return result > 0 ? true : false;
+            return result > 0 ? new Response() { Status = "Success" } : new Response() { Status = "Failed" };
         }
 
 
-        public GetCategoryModel Get(Expression<Func<Category, bool>> filter)
+        public Response<GetCategoryModel> Get(Expression<Func<Category, bool>> filter)
         {
             
             var category = _unitOfWork.Categories.Get(filter).Result;
              var categoryModel = _mapper.Map<GetCategoryModel>(category);
-            return categoryModel;
+            Response<GetCategoryModel> response = new Response<GetCategoryModel>();
+            response.Data = categoryModel;
+            response.Succeeded = true;
+            return response;
         }
-        public List<GetCategoryTitleModel> GetTitles(Expression<Func<Category, bool>> filter=null)
+
+        public Response<List<GetCategoryTitleModel>> GetTitles(Expression<Func<Category, bool>> filter=null)
         {
 
             var category = _unitOfWork.Categories.GetTitles(filter).Result;
             var categoryModel = _mapper.Map<List<GetCategoryTitleModel>>(category);
-            return categoryModel;
+            Response<List<GetCategoryTitleModel>> response = new Response<List<GetCategoryTitleModel>>();
+            response.Data = categoryModel;
+            response.Succeeded = true;
+            return response;
         }
 
-        public List<GetCategoryModel> GetAll(Expression<Func<Category, bool>> filter = null)
+        public Response<List<GetCategoryModel>> GetAll(Expression<Func<Category, bool>> filter = null)
         {
             var category = _unitOfWork.Categories.GetAll(filter).Result;
             var categoryModel = _mapper.Map<List<GetCategoryModel>>(category);
-
-            return categoryModel;
+            Response<List<GetCategoryModel>> response = new Response<List<GetCategoryModel>>();
+            response.Data = categoryModel;
+            response.Succeeded = true;
+            return response;
         }
 
-        public bool Update(int id, UpdateCategoryModel updateCategoryModel)
+        public Response Update(int id, UpdateCategoryModel updateCategoryModel)
         {
             var category = _unitOfWork.Categories.GetById(id).Result;
             updateCategoryModel.Id = id;
             _unitOfWork.Categories.Delete(category);
             var result = _unitOfWork.Complete();
-            return result > 0 ? true : false;
+            return result > 0 ? new Response() { Status = "Success" } : new Response() { Status = "Failed" };
         }
-
 
     }
 }
