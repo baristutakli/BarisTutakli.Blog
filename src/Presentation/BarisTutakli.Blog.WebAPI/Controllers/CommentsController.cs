@@ -1,4 +1,5 @@
 ﻿using BarisTutakli.Blog.Application.Models.CommentModels;
+using BarisTutakli.Blog.Application.Tools.JsonConverterTools;
 using Blog.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +26,8 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var categories = _commentService.GetAll();
-            return Ok(JsonConvert.SerializeObject(categories, Formatting.Indented, new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            }));
+            var comments = _commentService.GetAll();
+            return Ok(CustomJsonConverter<List<GetCommentModel>>.ConvertResponse(comments));
         }
 
         // GET api/<CategoriesController>/5
@@ -38,17 +36,14 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         {
             var comment = _commentService.Get(c => c.Id == id);
 
-            return Ok(JsonConvert.SerializeObject(comment, Formatting.Indented, new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            }));
+            return Ok(CustomJsonConverter<GetCommentModel>.ConvertResponse(comment));
         }
 
         // POST api/<CategoriesController>
         [HttpPost]
         public IActionResult Post([FromBody] CreateCommentModel createCommentModel)
         {
-            return _commentService.Add(createCommentModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _commentService.Add(createCommentModel).Status == "Success" ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // PUT api/<CategoriesController>/5
@@ -56,7 +51,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Put(int id, [FromBody] UpdateCommentModel updateCommentModel)
         {
 
-            return _commentService.Update(id, updateCommentModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _commentService.Update(id, updateCommentModel).Status == "Success" ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // DELETE api/<CategoriesController>/5
@@ -64,7 +59,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Delete(int id)
         {
             DeleteCommentModel deleteComment = new DeleteCommentModel() { Id = id };
-            return _commentService.Delete(deleteComment) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _commentService.Delete(deleteComment).Status == "Success" ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

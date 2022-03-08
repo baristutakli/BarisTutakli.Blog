@@ -1,4 +1,5 @@
 ﻿using BarisTutakli.Blog.Application.Models.TagModels;
+using BarisTutakli.Blog.Application.Tools.JsonConverterTools;
 using Blog.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +26,8 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var categories = _tagService.GetAll();
-            return Ok(JsonConvert.SerializeObject(categories, Formatting.Indented, new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            }));
+            var tags = _tagService.GetAll();
+            return Ok(CustomJsonConverter<List<GetTagModel>>.ConvertResponse(tags));
         }
 
         // GET api/<CategoriesController>/5
@@ -38,17 +36,14 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         {
             var tag = _tagService.Get(c => c.Id == id);
 
-            return Ok(JsonConvert.SerializeObject(tag, Formatting.Indented, new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            }));
+            return Ok(CustomJsonConverter<GetTagModel>.ConvertResponse(tag));
         }
 
         // POST api/<CategoriesController>
         [HttpPost]
         public IActionResult Post([FromBody] CreateTagModel createTagModel)
         {
-            return _tagService.Add(createTagModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _tagService.Add(createTagModel).Status == "Success" ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // PUT api/<CategoriesController>/5
@@ -56,7 +51,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Put(int id, [FromBody] UpdateTagModel updateTagModel)
         {
 
-            return _tagService.Update(id, updateTagModel) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _tagService.Update(id, updateTagModel).Status == "Success" ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // DELETE api/<CategoriesController>/5
@@ -64,7 +59,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult Delete(int id)
         {
             DeleteTagModel deleteTag = new DeleteTagModel() { Id = id };
-            return _tagService.Delete(deleteTag) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _tagService.Delete(deleteTag).Status == "Success" ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }
