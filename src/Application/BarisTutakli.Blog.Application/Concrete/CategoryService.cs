@@ -76,7 +76,7 @@ namespace Blog.Application.Concrete
         {
             var category = _unitOfWork.Categories.GetById(id).Result;
             updateCategoryModel.Id = id;
-            _unitOfWork.Categories.Delete(category);
+            _unitOfWork.Categories.Update(category);
             var result = _unitOfWork.Complete();
             return result > 0 ? new Response() { Status = "Success" } : new Response() { Status = "Failed" };
         }
