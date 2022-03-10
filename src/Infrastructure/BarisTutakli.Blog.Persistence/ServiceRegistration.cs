@@ -1,4 +1,8 @@
-﻿using BarisTutakli.Blog.DomainServices.Interfaces;
+﻿using BarisTutakli.Blog.Application.Concrete;
+using BarisTutakli.Blog.Application.Interfaces;
+using BarisTutakli.Blog.Domain.Common;
+using BarisTutakli.Blog.Domain.Entities;
+using BarisTutakli.Blog.DomainServices.Interfaces;
 using BarisTutakli.Blog.Persistence.Context;
 using BarisTutakli.Blog.Persistence.Repositories;
 using BarisTutakli.Blog.Persistence.UnitOfWorks;
@@ -19,8 +23,8 @@ namespace BarisTutakli.Blog.Persistence
         {
             services.AddDbContext<UserDbContext>(opts => opts.UseSqlServer(configuration["ConnectionString:DBBlog"]));
            services.AddScoped<UserDbContext>();
-         
-
+            // Logging
+           
             // Repositories
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();

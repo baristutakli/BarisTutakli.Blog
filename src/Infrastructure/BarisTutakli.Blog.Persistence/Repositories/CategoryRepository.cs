@@ -13,9 +13,9 @@ namespace BarisTutakli.Blog.Persistence.Repositories
 {
     public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
+        
         public CategoryRepository(UserDbContext context) : base(context)
         {
-
         }
         public async override Task<Category> Get(Expression<Func<Category, bool>> filter)
         {

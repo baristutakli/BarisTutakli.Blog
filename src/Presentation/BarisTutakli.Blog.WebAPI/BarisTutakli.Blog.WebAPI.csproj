@@ -20,4 +20,8 @@
     <ProjectReference Include="..\..\Infrastructure\BarisTutakli.Blog.Persistence\BarisTutakli.Blog.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Loggers\" />
+  </ItemGroup>
+
 </Project>

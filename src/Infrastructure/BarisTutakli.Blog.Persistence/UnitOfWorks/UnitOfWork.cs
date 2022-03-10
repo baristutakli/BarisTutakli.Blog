@@ -1,4 +1,5 @@
-﻿using BarisTutakli.Blog.DomainServices.Interfaces;
+﻿using BarisTutakli.Blog.Domain.Entities;
+using BarisTutakli.Blog.DomainServices.Interfaces;
 using BarisTutakli.Blog.Persistence.Context;
 using BarisTutakli.Blog.Persistence.Repositories;
 using System;
@@ -18,20 +19,21 @@ namespace BarisTutakli.Blog.Persistence.UnitOfWorks
         public ICommentRepository Comments { get; private set; }
 
         public ICategoryRepository Categories { get; private set; }
-
+       
         public ITagRepository Tags { get; private set; }
 
         public IUserRepository Users { get; private set; }
-        public UnitOfWork(UserDbContext context)
-        {
-            _dbcontext = context;
-            Comments = new CommentRepository(_dbcontext);
-            Tags = new TagRepository(context);
-            Categories = new CategoryRepository(_dbcontext);
-            Users = new UserRepository(_dbcontext);
-            Posts = new PostRepository(_dbcontext);
 
+        public UnitOfWork(UserDbContext dbcontext, IPostRepository posts, ICommentRepository comments, ICategoryRepository categories, ITagRepository tags, IUserRepository users)
+        {
+            _dbcontext = dbcontext;
+            Posts = posts;
+            Comments = comments;
+            Categories = categories;
+            Tags = tags;
+            Users = users;
         }
+
         public int Complete()
         {
             return _dbcontext.SaveChanges();
