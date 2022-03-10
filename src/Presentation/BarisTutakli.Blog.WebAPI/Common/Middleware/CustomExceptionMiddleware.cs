@@ -19,11 +19,13 @@ namespace BarisTutakli.Blog.WebAPI.Middleware
     public class CustomExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILoggerService<string> _loggerService;
-        public CustomExceptionMiddleware(RequestDelegate next, ILoggerService<string> loggerService)
+        // private readonly ILoggerService<string> _loggerService;
+        private readonly ICrossCuttingConcernsFactory<string> _crossCuttingConcernsFactory;
+        public CustomExceptionMiddleware(RequestDelegate next, ILoggerService<string> loggerService, ICrossCuttingConcernsFactory<string> crossCuttingConcernsFactory)
         {
             _next = next;
-            _loggerService = loggerService;
+            //   _loggerService = loggerService;
+            _crossCuttingConcernsFactory = crossCuttingConcernsFactory;
         }
         public async Task Invoke(HttpContext context)
         {
@@ -32,8 +34,8 @@ namespace BarisTutakli.Blog.WebAPI.Middleware
             {
 
                 string message = $"[Request HTTP] {context.Request.Method } -- {context.Request.Path}\n";
-
-                _loggerService.Log(new Logs<string>() { Data=message});
+                _crossCuttingConcernsFactory.CreateMongoDBLogging().Log(new Logs<string>() { Data = message, Succeeded=true });
+               // _loggerService.Log(new Logs<string>() { Data=message});
 
                 //ReadToken
                 //var token = "";
@@ -80,7 +82,7 @@ namespace BarisTutakli.Blog.WebAPI.Middleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             string message = $"[Error] HTTP {context.Request.Method} -- {context.Response.StatusCode} Error Message: {ex.Message} in {watch.Elapsed.TotalMilliseconds}ms";
-            _loggerService.Log(new Logs<string>() { Data = message });
+          //  _loggerService.Log(new Logs<string>() { Data = message });
             var result = JsonConvert.SerializeObject(new { error = ex.Message }, Formatting.None);
             return context.Response.WriteAsync(result);
         }

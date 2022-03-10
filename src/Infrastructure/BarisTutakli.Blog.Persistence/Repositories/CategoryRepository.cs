@@ -15,10 +15,11 @@ namespace BarisTutakli.Blog.Persistence.Repositories
 {
     public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
-        private readonly ILoggerService<string> _loggerService;
-        public CategoryRepository(UserDbContext context, ILoggerService<string> loggerService) : base(context)
+        //private readonly ILoggerService<string> _loggerService;
+        private readonly ICrossCuttingConcernsFactory<string> _crossCuttingConcernsFactory;
+        public CategoryRepository(UserDbContext context,  ICrossCuttingConcernsFactory<string> crossCuttingConcernsFactory) : base(context)
         {
-            _loggerService = loggerService;
+            _crossCuttingConcernsFactory = crossCuttingConcernsFactory;
         }
         public async override Task<Category> Get(Expression<Func<Category, bool>> filter)
         {
@@ -34,7 +35,7 @@ namespace BarisTutakli.Blog.Persistence.Repositories
         // Save a category in mongodb before deleting it
         public override void Delete(Category entity)
         {
-            _loggerService.Log(new Logs<string>(data: System.Text.Json.JsonSerializer.Serialize(entity)));
+            _crossCuttingConcernsFactory.CreateMongoDBLogging().Log(new Logs<string>(data: System.Text.Json.JsonSerializer.Serialize(entity)));
             base.Delete(entity);
         }
         public async Task<List<Category>> GetTitles(Expression<Func<Category, bool>> filter = null)

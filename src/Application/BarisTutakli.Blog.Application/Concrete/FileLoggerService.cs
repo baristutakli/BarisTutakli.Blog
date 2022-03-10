@@ -3,6 +3,7 @@ using BarisTutakli.Blog.Application.Wrappers;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,18 +25,18 @@ namespace BarisTutakli.Blog.Application.Concrete
 
             // This code log messages into documents directory
             string mainPath = _hostingEnvironment.ContentRootPath;
-            ////string filePath = $"{mainPath}\\LogFiles\\";
-            //string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            //if (!Directory.Exists(docPath))
-            //{
-            //    Directory.CreateDirectory(docPath);
-            //}
-            //// Write the specified text asynchronously to a new file named "WriteTextAsync.txt".
-            //using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, 
-            //    "RequestAndResponseLogger.txt"),true))
-            //{
-            //    outputFile.Write(message);
-            //}
+            //string filePath = $"{mainPath}\\LogFiles\\";
+            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (!Directory.Exists(docPath))
+            {
+                Directory.CreateDirectory(docPath);
+            }
+            // Write the specified text asynchronously to a new file named "WriteTextAsync.txt".
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath,
+                "RequestAndResponseLogger.txt"), true))
+            {
+                outputFile.Write(System.Text.Json.JsonSerializer.Serialize(logs));
+            }
 
         }
     }
