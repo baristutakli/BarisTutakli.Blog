@@ -13,7 +13,7 @@ namespace BarisTutakli.Blog.WebAPI.Common.Loggers
     {
        
         private readonly IConfiguration _configuration;
-        private readonly IMongoCollection<Logs<T>> _booksCollection;
+        private readonly IMongoCollection<Logs<T>> _entitiesCollection;
         public MongoDBLoggerService(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -23,11 +23,11 @@ namespace BarisTutakli.Blog.WebAPI.Common.Loggers
             var mongoDatabase = mongoClient.GetDatabase(
                 configuration["MongoDBLogging:DatabaseName"]);
 
-            _booksCollection = mongoDatabase.GetCollection<Logs<T>>(configuration["MongoDBLogging:CollectionName"]);
+            _entitiesCollection = mongoDatabase.GetCollection<Logs<T>>(configuration["MongoDBLogging:CollectionName"]);
         }
         public void Log(Logs<T> logs)
         {
-            _booksCollection.InsertOne(logs);
+            _entitiesCollection.InsertOne(logs);
         }
 
       

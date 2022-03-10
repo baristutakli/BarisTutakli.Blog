@@ -6,6 +6,7 @@ using BarisTutakli.Blog.DomainServices.Interfaces;
 using BarisTutakli.Blog.Persistence.Context;
 using BarisTutakli.Blog.Persistence.Repositories;
 using BarisTutakli.Blog.Persistence.UnitOfWorks;
+using BarisTutakli.Blog.WebAPI.Common.Loggers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +32,7 @@ namespace BarisTutakli.Blog.Persistence
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-
+            services.AddSingleton<ILoggerService<BaseEntity>, MongoDBLoggerService<BaseEntity>>();
             //UnitOfWork
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
