@@ -46,6 +46,7 @@ namespace BarisTutakli.Blog.WebAPI
             // RabittMQService 
             //services.AddInfrastructureServices(Configuration);
             services.AddSingleton<ILoggerService<string>, MongoDBLoggerService<string>>();
+           
             // services.AddSingleton<ILoggerService<>, FileLoggerService>();
             services.Configure<MongoDatabaseSettings>(
                Configuration.GetSection("LoggingDatabase"));
