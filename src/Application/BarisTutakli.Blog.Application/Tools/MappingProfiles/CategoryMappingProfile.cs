@@ -16,8 +16,10 @@ namespace BarisTutakli.Blog.Application.Tools.MappingProfiles
 
             CreateMap<CreateCategoryModel, Category>().ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => DateTime.Parse(DateTime.Now.ToShortDateString())));
 
-            CreateMap<Category, GetCategoryTitleModel>();
-            CreateMap<Category, GetCategoryModel>().ForMember(dest => dest.Posts, opt => opt.MapFrom(src => src.Posts));
+            CreateMap<Category, GetCategoryTitleModel>().ReverseMap();
+            CreateMap<Category, GetCategoryModel>()
+               .ForMember(dest => dest.Posts, opt => opt.MapFrom(src => src.Posts)).ReverseMap();
+     
         }
     }
 }

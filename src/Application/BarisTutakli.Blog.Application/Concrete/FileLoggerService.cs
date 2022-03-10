@@ -1,24 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using BarisTutakli.Blog.Application.Interfaces;
+using BarisTutakli.Blog.Application.Wrappers;
 using Microsoft.AspNetCore.Hosting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BarisTutakli.Blog.WebAPI.Common.Loggers
+namespace BarisTutakli.Blog.Application.Concrete
 {
-    public class FileLogger : ILoggerService
+    public class FileLoggerService<T>:ILoggerService<T> where T : class
     {
+
         private readonly IWebHostEnvironment _hostingEnvironment;
-        public FileLogger(IWebHostEnvironment hostingEnvironment)
+        public FileLoggerService(IWebHostEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
         }
-        
-        public void Log(string message)
+
+        public void Log(Logs<T> logs)
         {
-            Console.WriteLine($"[FileLogger]: {message}");
+            Console.WriteLine($"[FileLogger]: {System.Text.Json.JsonSerializer.Serialize(logs)}");
 
             // This code log messages into documents directory
             string mainPath = _hostingEnvironment.ContentRootPath;

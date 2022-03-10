@@ -16,98 +16,123 @@ using System.Linq;
 
 namespace BarisTutakli.Blog.ApplicationTest
 {
-    public class CategoriesServiceUnitTest
-    {
-        Mock<IUnitOfWork> _unitOfWorkMock;
-        CategoryService _categoryService;
+    //public class CategoriesServiceUnitTest
+    //{
+    //    Mock<IUnitOfWork> _unitOfWorkMock;
+    //    CategoryService _categoryService;
        
-        IMapper _mapper;
+    //    IMapper _mapper;
+    //    List<Category> _categoryList = new List<Category>() {
+    //    new Category() { Id = 1, Body = "asdasda", Title = "title", MetaTitle = "aaaaa", IsActive = true},
+    //            new Category() { Id = 2, Body = "asdasda", Title = "title", MetaTitle = "aaaaa", IsActive = true},
+    //            new Category() { Id = 3, Body = "asdasda", Title = "title", MetaTitle = "aaaaa", IsActive = true}
+    //    };
 
-        public CategoriesServiceUnitTest()
-        {
-            _unitOfWorkMock = new Mock<IUnitOfWork>();
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new CategoryMappingProfile());
-            });
-            _mapper = mappingConfig.CreateMapper();
-
-
-            _categoryService = new CategoryService(_unitOfWorkMock.Object,_mapper);
-        }
-
-        [Fact]
-        public void Add_Category_ReturnsBoolean()
-        {
-            //Arrange
-            CreateCategoryModel createCategoryModel = new CreateCategoryModel() { Body="asdasda", MetaTitle="c#", Title="Hello world" };
-            var category = _mapper.Map<Category>(createCategoryModel);
-            _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Categories.Add(It.IsAny<Category>()));
-            _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Complete()).Returns(1);
-
-            // Act
-
-            _unitOfWorkMock.Object.Categories.Add(category);
-            var affectedRows = _unitOfWorkMock.Object.Complete();
-
-            //Assert
-            Assert.IsType < Category>(category);
-            Assert.True(affectedRows > 0);
-        }
+    //    public CategoriesServiceUnitTest()
+    //    {
+    //        _unitOfWorkMock = new Mock<IUnitOfWork>();
+    //        var mappingConfig = new MapperConfiguration(mc =>
+    //        {
+    //            mc.AddProfile(new CategoryMappingProfile());
+    //        });
+    //        _mapper = mappingConfig.CreateMapper();
 
 
-        [Fact]
-        public void Add_Category_ReturnsGetCategoryTitleModelList()
-        {
-            //Arrange
-            List<Category> list = new List<Category>()
-            {
-                new Category() { Id = 1, Body = "asdasda", Title = "title", MetaTitle = "aaaaa", IsActive = true},
-                new Category() { Id = 2, Body = "asdasda", Title = "title", MetaTitle = "aaaaa", IsActive = true},
-                new Category() { Id = 3, Body = "asdasda", Title = "title", MetaTitle = "aaaaa", IsActive = true}
-            };
+    //        _categoryService = new CategoryService(_unitOfWorkMock.Object,_mapper);
+    //    }
 
-             _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Categories.GetTitles(c=>c.Id>0).Result).Returns(list);
+    //    [Fact]
+    //    public void Add_Category_ReturnsBoolean()
+    //    {
+    //        //Arrange
+    //        CreateCategoryModel createCategoryModel = new CreateCategoryModel() { Body="asdasda", MetaTitle="c#", Title="Hello world" };
+    //        var category = _mapper.Map<Category>(createCategoryModel);
+    //        _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Categories.Add(It.IsAny<Category>()));
+    //        _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Complete()).Returns(1);
 
-            // Act
+    //        // Act
 
-            var categories = _unitOfWorkMock.Object.Categories.GetTitles(c => c.Id >0);
-            var categoryModelList = _mapper.Map<List<GetCategoryTitleModel>>(categories.Result);
+    //        _unitOfWorkMock.Object.Categories.Add(category);
+    //        var affectedRows = _unitOfWorkMock.Object.Complete();
 
-            //Assert
-            Assert.Equal(3, categoryModelList.Count);
-            Assert.IsType<List<GetCategoryTitleModel>>(categoryModelList);
+    //        //Assert
+    //        Assert.IsType < Category>(category);
+    //        Assert.True(affectedRows > 0);
+    //    }
+
+    //    [Fact]
+    //    public void Update_Category_ReturnsBoolean()
+    //    {
+    //        //Arrange
+    //        UpdateCategoryModel updateCategoryModel = new UpdateCategoryModel() { Body = "asdasda", MetaTitle = "c#", Title = "Hello world" };
+    //        var category = _mapper.Map<Category>(updateCategoryModel);
+    //        _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Categories.Update(It.IsAny<Category>()));
+    //        _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Complete()).Returns(1);
+
+    //        // Act
+    //        _unitOfWorkMock.Object.Categories.Add(category);
+    //        var affectedRows = _unitOfWorkMock.Object.Complete();
+
+    //        //Assert
+    //        Assert.IsType<Category>(category);
+    //        Assert.True(affectedRows > 0);
+    //    }
+
+
+    //    [Fact]
+    //    public void Get_Expression_ReturnsGetCategoryTitleModelList()
+    //    {
+    //        //Arrange
+    //        // To meet the demand of a list of category, I created a global list.
+    //         _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Categories.GetTitles(c=>c.Id>0).Result).Returns(_categoryList);
+
+    //        // Act
+    //        var categories = _unitOfWorkMock.Object.Categories.GetTitles(c => c.Id >0);
+    //        var categoryModelList = _mapper.Map<List<GetCategoryTitleModel>>(categories.Result);
+
+    //        //Assert
+    //        Assert.Equal(3, categoryModelList.Count);
+    //        Assert.IsType<List<GetCategoryTitleModel>>(categoryModelList);
            
-        }
+    //    }
 
-        [Fact]
-        public void Get_Category_ReturnsGetCategoryModel()
-        {
-            //Arrange
-            List<Category> list = new List<Category>()
-            {
-                new Category() { Id = 1, Body = "asdasda", Title = "title", MetaTitle = "aaaaa", IsActive = true},
-                new Category() { Id = 2, Body = "asdasda", Title = "title", MetaTitle = "aaaaa", IsActive = true},
-                new Category() { Id = 3, Body = "asdasda", Title = "title", MetaTitle = "aaaaa", IsActive = true}
-            };
-             _unitOfWorkMock.Setup(
-                unitOfWork => unitOfWork.Categories.Get(It.IsAny<Expression<Func<Category, bool>>>()).Result
-                ).Returns(Task.FromResult(new Category() { Id = 1, Body = "asdasda", Title = "title", MetaTitle = "aaaaa", IsActive = true }).Result
-                );
+    //    [Fact]
+    //    public void Get_Category_ReturnsGetCategoryModel()
+    //    {
+    //        //Arrange
+    //        // To meet the demand of a list of category, I created a global list.
+    //         _unitOfWorkMock.Setup(
+    //            unitOfWork => unitOfWork.Categories.Get(It.IsAny<Expression<Func<Category, bool>>>()).Result
+    //            ).Returns(Task.FromResult(new Category() { Id = 1, Body = "asdasda", Title = "title", MetaTitle = "aaaaa", IsActive = true }).Result
+    //            );
 
 
-            // Act   
+    //        // Act   
+    //        var category = _unitOfWorkMock.Object.Categories.Get(c=>c.Id==1);
+    //        var categoryModel = _mapper.Map<GetCategoryModel>(category.Result);
 
-            var category = _unitOfWorkMock.Object.Categories.Get(c=>c.Id==1);
-            
+    //        //Assert
+    //        Assert.IsType<GetCategoryModel>(categoryModel);
+    //        Assert.NotNull(category);
+    //        Assert.NotNull(categoryModel);
+    //    }
 
-            var categoryModel = _mapper.Map<GetCategoryModel>(category.Result);
+    //    [Fact]
+    //    public void Get_Expression_ReturnsGetCategoryModelList()
+    //    {
+    //        //Arrange
+    //        // To meet the demand of a list of category, I created a global list.
+    //        _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Categories.GetAll(c => c.Id > 0).Result).Returns(_categoryList.Where(c=>c.Id>0).ToList());
 
-            //Assert
-            Assert.IsType<GetCategoryModel>(categoryModel);
-            Assert.NotNull(category);
-           Assert.NotNull(categoryModel);
-            
-        }
-    }
+    //        // Act
+
+    //        var categories = _unitOfWorkMock.Object.Categories.GetAll(c => c.Id > 0);
+    //        var categoryModelList = _mapper.Map<List<GetCategoryTitleModel>>(categories.Result);
+
+    //        //Assert
+    //        Assert.Equal(3, categoryModelList.Count);
+    //        Assert.IsType<List<GetCategoryTitleModel>>(categoryModelList);
+    //    }
+
+    //}
 }

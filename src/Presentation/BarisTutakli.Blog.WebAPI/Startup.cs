@@ -1,4 +1,6 @@
 using BarisTutakli.Blog.Application;
+using BarisTutakli.Blog.Application.Concrete;
+using BarisTutakli.Blog.Application.Interfaces;
 using BarisTutakli.Blog.Infrastructure;
 using BarisTutakli.Blog.Persistence;
 using BarisTutakli.Blog.WebAPI.Common.Loggers;
@@ -43,8 +45,8 @@ namespace BarisTutakli.Blog.WebAPI
             services.AddApplicationServices();
             // RabittMQService 
             //services.AddInfrastructureServices(Configuration);
-
-            services.AddSingleton<ILoggerService, FileLogger>();
+            services.AddSingleton<ILoggerService<string>, MongoDBLoggerService<string>>();
+            // services.AddSingleton<ILoggerService<>, FileLoggerService>();
             services.Configure<MongoDatabaseSettings>(
                Configuration.GetSection("LoggingDatabase"));
 

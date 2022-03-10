@@ -1,4 +1,6 @@
-﻿using BarisTutakli.Blog.WebAPI.Common.Loggers;
+﻿using BarisTutakli.Blog.Application.Interfaces;
+using BarisTutakli.Blog.Application.Wrappers;
+using BarisTutakli.Blog.WebAPI.Common.Loggers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
@@ -17,8 +19,8 @@ namespace BarisTutakli.Blog.WebAPI.Middleware
     public class CustomExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILoggerService _loggerService;
-        public CustomExceptionMiddleware(RequestDelegate next, ILoggerService loggerService)
+        private readonly ILoggerService<string> _loggerService;
+        public CustomExceptionMiddleware(RequestDelegate next, ILoggerService<string> loggerService)
         {
             _next = next;
             _loggerService = loggerService;
@@ -31,7 +33,7 @@ namespace BarisTutakli.Blog.WebAPI.Middleware
 
                 string message = $"[Request HTTP] {context.Request.Method } -- {context.Request.Path}\n";
 
-                _loggerService.Log(message);
+                _loggerService.Log(new Logs<string>() { Data=message});
 
                 //ReadToken
                 //var token = "";
@@ -56,16 +58,12 @@ namespace BarisTutakli.Blog.WebAPI.Middleware
                 //}
 
 
-
-
-
-
                 await _next(context);
                 watch.Stop();
                 message = $"[Response HTTP] {context.Request.Method} -- {context.Request.Path} responded {context.Response.StatusCode} in {watch.Elapsed.TotalMilliseconds}ms\n";
 
 
-                _loggerService.Log(message);
+              // _loggerService.Log(message);
             }
             catch (Exception ex)
             {
@@ -82,7 +80,7 @@ namespace BarisTutakli.Blog.WebAPI.Middleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             string message = $"[Error] HTTP {context.Request.Method} -- {context.Response.StatusCode} Error Message: {ex.Message} in {watch.Elapsed.TotalMilliseconds}ms";
-            _loggerService.Log(message);
+            _loggerService.Log(new Logs<string>() { Data = message });
             var result = JsonConvert.SerializeObject(new { error = ex.Message }, Formatting.None);
             return context.Response.WriteAsync(result);
         }
