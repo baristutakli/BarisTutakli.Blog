@@ -1,13 +1,16 @@
 using BarisTutakli.Blog.Application;
 using BarisTutakli.Blog.Application.Concrete;
 using BarisTutakli.Blog.Application.Interfaces;
+using BarisTutakli.Blog.Domain.Entities;
 using BarisTutakli.Blog.Infrastructure;
 using BarisTutakli.Blog.Persistence;
+using BarisTutakli.Blog.Persistence.Context;
 using BarisTutakli.Blog.WebAPI.Common.Loggers;
 using BarisTutakli.Blog.WebAPI.Common.Settings;
 using BarisTutakli.Blog.WebAPI.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,7 +45,7 @@ namespace BarisTutakli.Blog.WebAPI
             //Persistence dependency resolver
             services.AddPersistenceServices(Configuration);
             // Application leyer dependency resolver
-            services.AddApplicationServices();
+            services.AddApplicationServices(Configuration);
             // RabittMQService 
             //services.AddInfrastructureServices(Configuration);
             services.AddSingleton<ILoggerService<string>, MongoDBLoggerService<string>>();
@@ -50,6 +53,13 @@ namespace BarisTutakli.Blog.WebAPI
             // services.AddSingleton<ILoggerService<>, FileLoggerService>();
             services.Configure<MongoDatabaseSettings>(
                Configuration.GetSection("LoggingDatabase"));
+
+            services.AddIdentity<User, IdentityRole>(option =>
+            {
+                option.Lockout.AllowedForNewUsers = true;
+                option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
+                option.Lockout.MaxFailedAccessAttempts = 3;
+            }).AddEntityFrameworkStores<UserDbContext>();
 
         }
 
