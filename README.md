@@ -1,11 +1,10 @@
 # .Net Core Blog Project
 
-This is an application of Onion Architecture. There are three main folders named Core, Infrastructure, Presentation in which there are different classes and class libraries depending on concerns. In tihs project, I applied code first approach to create database. In the middleware, you can choose either mongodblogger or FileLogger to save requests and responses.
+This is an application of **onion architecture**. There are four main folders named **Core**, **Infrastructure**, **Application**, **Presentation** in which there are different classes and class libraries depending on concerns. In this project, I applied the code-first approach to create the database using Entity Framework.  In the middleware, you can choose either mongodblogger or FileLogger to save requests and responses.
 
 
 
 ### Patterns
-*  To meet the future demands, I used **Decorator Pattern**
 * **Unit of Work**
 * **Generic Repository**
 * **Abstract Factory Pattern**
