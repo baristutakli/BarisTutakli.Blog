@@ -13,11 +13,12 @@ namespace BarisTutakli.Blog.Application.Interfaces
 {
     public interface IAuthenticateService
     {
-        public Task<IdentityResult> CreateUser(CreateUserModel model);
-        public Task<Response<User>> CreateAdmin(CreateUserModel model);
-        public Task<bool> CheckUser(User user, LoginViewModel model);
-        public Task<bool> CreateAdminRole(User user, string role);
-        public Task<User> FindByEmailAsync(string username);
+         Task<Token> Login(LoginViewModel model);
+         Task<IdentityResult> CreateUser(CreateUserModel model);
+         Task<Response<User>> CreateAdmin(CreateUserModel model);
+         Task<bool> CheckUser(User user, LoginViewModel model);
+         Task<bool> CreateAdminRole(User user, string role);
+         Task<User> FindByEmailAsync(string username);
 
     }
 }

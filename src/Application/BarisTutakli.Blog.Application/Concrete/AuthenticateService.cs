@@ -16,14 +16,31 @@ namespace BarisTutakli.Blog.Application.Concrete
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ITokenService _tokenService;
 
-
-        public AuthenticateService(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public AuthenticateService(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ITokenService tokenService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _tokenService = tokenService;
 
+        }
 
+        public async Task<Token> Login(LoginViewModel model)
+        {
+            // user locked out çalıştı bu kısmı düzenlemen gerek  
+            var user = await FindByEmailAsync(model.Email);
+          
+            if (!await _userManager.IsLockedOutAsync(user))
+            {
+                if (await CheckUser(user, model))
+                {
+
+                    var token = await _tokenService.Create(user);
+                    return token;
+                }
+            }
+            return null;
         }
         public async Task<IdentityResult> CreateUser(CreateUserModel model)
         {
