@@ -19,11 +19,11 @@ namespace BarisTutakli.Blog.Persistence.Repositories
         }
         public async override Task<Post> Get(Expression<Func<Post, bool>> filter)
         {
-            return await _dbcontext.Posts.Include(c=>c.Tags).Include(c => c.Categories).SingleOrDefaultAsync(filter);
+            return await _dbcontext.Posts.Include(c=>c.Tags).Include(c => c.Categories).AsSplitQuery().SingleOrDefaultAsync(filter);
         }
         public async override Task<List<Post>> GetAll(Expression<Func<Post, bool>> filter = null)
         {
-            return filter == null ? await _dbcontext.Posts.Include(c => c.Tags).Include(c => c.Categories).ToListAsync() : await _dbcontext.Posts.Include(c => c.Tags).Include(c => c.Categories).Where(filter).ToListAsync();
+            return filter == null ? await _dbcontext.Posts.Include(c => c.Tags).Include(c => c.Categories).AsSplitQuery().ToListAsync() : await _dbcontext.Posts.Include(c => c.Tags).Include(c => c.Categories).Where(filter).AsSplitQuery().ToListAsync();
         }
     }
 }
