@@ -83,8 +83,8 @@ namespace BarisTutakli.Blog.Application.Concrete
         {
             if (!await _roleManager.RoleExistsAsync(role))
                 await _roleManager.CreateAsync(new IdentityRole(role));
-            if (!await _roleManager.RoleExistsAsync(Roles.User))
-                await _roleManager.CreateAsync(new IdentityRole(Roles.User));
+            if (!await _roleManager.RoleExistsAsync(ViewModels.UserViewModels.Roles.User))
+                await _roleManager.CreateAsync(new IdentityRole(ViewModels.UserViewModels.Roles.User));
 
             if (await _roleManager.RoleExistsAsync(role))
             {
