@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31911.196
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{82B2C8B3-5BFD-4B66-86B1-38E6D63365F5}"
 EndProject
@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarisTutakli.Blog.Applicati
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{3A211733-53D2-4FAB-AF1E-01C3FC741065}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarisTutakli.Blog.ApplicationTest", "UnitTests\BarisTutakli.Blog.ApplicationTest\BarisTutakli.Blog.ApplicationTest.csproj", "{B4265519-00AA-4F36-B4B7-E35B411605E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarisTutakli.Blog.ApplicationTest", "UnitTests\BarisTutakli.Blog.ApplicationTest\BarisTutakli.Blog.ApplicationTest.csproj", "{B4265519-00AA-4F36-B4B7-E35B411605E4}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "BarisTutakli.Blog.Frontend", "src\Presentation\BarisTutakli.Blog.Frontend\BarisTutakli.Blog.Frontend.esproj", "{77AD20D6-B042-4395-A0DC-6AB2B15BFCC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,12 @@ Global
 		{B4265519-00AA-4F36-B4B7-E35B411605E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4265519-00AA-4F36-B4B7-E35B411605E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4265519-00AA-4F36-B4B7-E35B411605E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77AD20D6-B042-4395-A0DC-6AB2B15BFCC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77AD20D6-B042-4395-A0DC-6AB2B15BFCC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77AD20D6-B042-4395-A0DC-6AB2B15BFCC2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{77AD20D6-B042-4395-A0DC-6AB2B15BFCC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77AD20D6-B042-4395-A0DC-6AB2B15BFCC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77AD20D6-B042-4395-A0DC-6AB2B15BFCC2}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +88,7 @@ Global
 		{4D60F95D-E3E4-4EE7-A2E5-41B7373AE124} = {76D376B0-884A-40A4-A1B0-772EA5F0742D}
 		{3A211733-53D2-4FAB-AF1E-01C3FC741065} = {82B2C8B3-5BFD-4B66-86B1-38E6D63365F5}
 		{B4265519-00AA-4F36-B4B7-E35B411605E4} = {3A211733-53D2-4FAB-AF1E-01C3FC741065}
+		{77AD20D6-B042-4395-A0DC-6AB2B15BFCC2} = {3907772C-D69B-4542-A3AF-5A4FEF809734}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {01B1FA27-38B7-47C8-A53C-BF3E0FE461B7}
