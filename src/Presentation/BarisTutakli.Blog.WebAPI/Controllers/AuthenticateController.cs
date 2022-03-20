@@ -20,15 +20,15 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         {
             _authenticateService = authenticateService;
         }
-        
+
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
             var token = await _authenticateService.Login(model);
             HttpContext.Response.Headers["Authentication"] = token.AccessToken;
-            return token.AccessToken!=null ? Ok():Unauthorized();
-    
+            return token.AccessToken != null ? Ok() : Unauthorized();
+
         }
 
         [HttpPost]
@@ -46,6 +46,24 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 
+        [HttpPost]
+        [Route("register/admin")]
+        public async Task<IActionResult> RegisterAdmin([FromBody] CreateUserModel model)
+        {
+            var userExists = await _authenticateService.FindByEmailAsync(model.Email);
+            if (userExists != null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
+
+            var result = _authenticateService.CreateAdmin(model);
+
+            if (!result.Result.Succeeded)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+
+            await _authenticateService.CreateAdminRole(result.Result.Data, Roles.Admin);
+
+            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+        }
     }
 }
+
