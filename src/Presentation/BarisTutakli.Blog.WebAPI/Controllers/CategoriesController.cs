@@ -27,14 +27,14 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         public IActionResult GetAll()
         {
             var categories = _categoryService.GetAll();
-            return Ok(CustomJsonConverter<List<GetCategoryModel>>.ConvertResponse(categories));
+            return Ok(categories);
         }
         [HttpGet("titles")]
         //[Route("/titles")]
         public IActionResult GetTitles()
         {
             var categories = _categoryService.GetTitles();
-            return Ok(CustomJsonConverter<List<GetCategoryTitleModel>>.ConvertResponse(categories));
+            return Ok(categories);
         }
 
         // GET api/<CategoriesController>/5
@@ -43,14 +43,14 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         {
             var category = _categoryService.Get(c=>c.Id==id);
 
-            return Ok(CustomJsonConverter<GetCategoryModel>.ConvertResponse(category));
+            return Ok(category);
         }
 
         // POST api/<CategoriesController>
         [HttpPost]
         public IActionResult Post([FromBody] CreateCategoryModel createCategoryModel)
         {
-            return _categoryService.Add(createCategoryModel).Status=="Success" ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return _categoryService.Add(createCategoryModel).Status=="Success" ? StatusCode(StatusCodes.Status201Created) : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         // PUT api/<CategoriesController>/5
