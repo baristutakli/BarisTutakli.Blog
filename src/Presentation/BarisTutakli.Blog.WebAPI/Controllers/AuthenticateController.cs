@@ -42,6 +42,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
             var result = await _authenticateService.CreateUser(model);
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+            await _authenticateService.CreateAdminRole(result.Data, Roles.User);
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
@@ -55,7 +56,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
 
-            var result = _authenticateService.CreateAdmin(model);
+            var result = _authenticateService.CreateUser(model);
 
             if (!result.Result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });

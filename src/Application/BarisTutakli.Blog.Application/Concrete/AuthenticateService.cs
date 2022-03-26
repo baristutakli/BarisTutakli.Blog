@@ -35,26 +35,13 @@ namespace BarisTutakli.Blog.Application.Concrete
             {
                 if (await CheckUser(user, model))
                 {
-
                     var token = await _tokenService.Create(user);
                     return token;
                 }
             }
             return null;
         }
-        public async Task<IdentityResult> CreateUser(CreateUserModel model)
-        {
-            User user = new User()
-            {
-                Email = model.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.UserName
-            };
-            var result = await _userManager.CreateAsync(user, model.Password);
-            return result;
-        }
-
-        public async Task<Response<User>> CreateAdmin(CreateUserModel model)
+        public async Task<Response<User>> CreateUser(CreateUserModel model)
         {
             User user = new User()
             {
@@ -78,13 +65,24 @@ namespace BarisTutakli.Blog.Application.Concrete
             return user != null && await _userManager.CheckPasswordAsync(user, model.Password);
         }
 
+        public async Task<bool> CreateUserRole(User user, string role)
+        {
+            // Değişecek
+            if (!await _roleManager.RoleExistsAsync(ViewModels.UserViewModels.Roles.User))
+                await _roleManager.CreateAsync(new IdentityRole(ViewModels.UserViewModels.Roles.User));
+
+            if (await _roleManager.RoleExistsAsync(role))
+            {
+                await _userManager.AddToRoleAsync(user, role);
+            }
+            return true;
+        }
 
         public async Task<bool> CreateAdminRole(User user, string role)
         {
+            // Değişecek
             if (!await _roleManager.RoleExistsAsync(role))
                 await _roleManager.CreateAsync(new IdentityRole(role));
-            if (!await _roleManager.RoleExistsAsync(ViewModels.UserViewModels.Roles.User))
-                await _roleManager.CreateAsync(new IdentityRole(ViewModels.UserViewModels.Roles.User));
 
             if (await _roleManager.RoleExistsAsync(role))
             {

@@ -14,8 +14,7 @@ namespace BarisTutakli.Blog.Application.Interfaces
     public interface IAuthenticateService
     {
          Task<Token> Login(LoginViewModel model);
-         Task<IdentityResult> CreateUser(CreateUserModel model);
-         Task<Response<User>> CreateAdmin(CreateUserModel model);
+         Task<Response<User>> CreateUser(CreateUserModel model);
          Task<bool> CheckUser(User user, LoginViewModel model);
          Task<bool> CreateAdminRole(User user, string role);
          Task<User> FindByEmailAsync(string username);

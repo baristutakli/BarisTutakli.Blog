@@ -14,6 +14,7 @@ export default class App extends Component {
 
     static renderForecastsTable(forecasts) {
         return (
+
             <table className='table table-striped' aria-labelledby="tabelLabel">
                 <thead>
                     <tr>
