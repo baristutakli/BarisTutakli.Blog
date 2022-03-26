@@ -18,4 +18,7 @@ This is an application of **onion architecture**. There are four main folders na
 * RabbitMQ
 * Microsoft Identity User
 
+### Frontend
+* React(Just initialized)
+
 
