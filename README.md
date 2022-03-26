@@ -5,7 +5,6 @@ This is an application of Onion Architecture. There are three main folders named
 
 
 ### Patterns
-*  To meet the future demands, I used **Decorator Pattern**
 * **Unit of Work**
 * **Generic Repository**
 * **Abstract Factory Pattern**
@@ -18,5 +17,8 @@ This is an application of Onion Architecture. There are three main folders named
 * MongoDB
 * RabbitMQ
 * Microsoft Identity User
+
+### Frontend
+* React(Just initialized)
 
 
