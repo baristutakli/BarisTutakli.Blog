@@ -48,9 +48,10 @@ namespace BarisTutakli.Blog.WebAPI
             services.AddApplicationServices(Configuration);
             // RabittMQService 
             //services.AddInfrastructureServices(Configuration);
+
             services.AddSingleton<ILoggerService<string>, MongoDBLoggerService<string>>();
             services.AddSingleton<ICrossCuttingConcernsFactory<string>, CrossCuttingConcernsFactory<string>>();
-            // services.AddSingleton<ILoggerService<>, FileLoggerService>();
+          
             services.Configure<MongoDatabaseSettings>(
                Configuration.GetSection("LoggingDatabase"));
 
@@ -60,7 +61,6 @@ namespace BarisTutakli.Blog.WebAPI
                 option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
                 option.Lockout.MaxFailedAccessAttempts = 3;
             }).AddEntityFrameworkStores<UserDbContext>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +76,7 @@ namespace BarisTutakli.Blog.WebAPI
             app.UseRouting();
             app.UseCustomExceptionMiddleware();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
