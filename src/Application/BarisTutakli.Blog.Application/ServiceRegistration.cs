@@ -32,27 +32,42 @@ namespace BarisTutakli.Blog.Application
            // services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICategoryService, CategoryService>();
 
-            // Token Generator
-            services.AddScoped<ITokenService, TokenService>();
+
             services.AddScoped<IAuthenticateService, AuthenticateService>();
 
             services.AddSingleton<ILoggerService<BaseEntity>, MongoDBLoggerService<BaseEntity>>();
 
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = configuration["Jwt:ValidIssuer"],
-                    ValidAudience = configuration["Jwt:ValidAudience"],
-                    IssuerSigningKey = new  SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Secret"]))
-                };
-            });
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            //{
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuer = true,
+            //        ValidateAudience = true,
+            //        ValidateLifetime = true,
+            //        ValidateIssuerSigningKey = true,
+            //        ValidIssuer = configuration["Jwt:ValidIssuer"],
+            //        ValidAudience = configuration["Jwt:ValidAudience"],
+            //        IssuerSigningKey = new  SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Secret"]))
+            //    };
+            //});
 
+            // Adding Authentication  
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+     .AddJwtBearer(options =>
+     {
+         options.TokenValidationParameters = new TokenValidationParameters
+         {
+             ValidateIssuer = true,
+             ValidateAudience = true,
+             ValidateIssuerSigningKey = true,
+             ValidIssuer = configuration["Jwt:ValidIssuer"],
+             ValidAudience = configuration["Jwt:ValidAudience"],
+             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Secret"]))
+         };
+     });
+            // Token Generator
+            services.AddScoped<ITokenService, TokenService>();
 
         }
     }

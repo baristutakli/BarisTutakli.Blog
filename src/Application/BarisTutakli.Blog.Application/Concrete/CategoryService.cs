@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BarisTutakli.Blog.Application.Dto;
+using BarisTutakli.Blog.Application.Interfaces;
 using BarisTutakli.Blog.Application.Models.CategoryModels;
 using BarisTutakli.Blog.Application.Wrappers;
 using BarisTutakli.Blog.Domain.Entities;
@@ -17,10 +18,12 @@ namespace Blog.Application.Concrete
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public CategoryService(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly ICrossCuttingConcernsFactory<string> _crossCuttingConcernsFactory;
+        public CategoryService(IUnitOfWork unitOfWork, IMapper mapper, ICrossCuttingConcernsFactory<string> crossCuttingConcernsFactory)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _crossCuttingConcernsFactory = crossCuttingConcernsFactory;
         }
         public Response Add(CreateCategoryModel createCategoryModel)
         {
@@ -34,6 +37,8 @@ namespace Blog.Application.Concrete
         public Response Delete(DeleteCategoryModel deleteCategoryModel)
         {
             var category = _unitOfWork.Categories.GetById(deleteCategoryModel.Id).Result;
+            // Save a category in mongodb before deleting it
+            _crossCuttingConcernsFactory.CreateMongoDBLogging().Log(new Logs<string>(data: System.Text.Json.JsonSerializer.Serialize(category)));
             _unitOfWork.Categories.Delete(category);
             var result = _unitOfWork.Complete();
             return result > 0 ? new Response() { Status = "Success" } : new Response() { Status = "Failed" };

@@ -12,6 +12,6 @@ namespace BarisTutakli.Blog.Application.Interfaces
     public interface ITokenService
     {
         Task<Token> Create(User user);
-       // bool ValidateToken(string key, string issuer, string audience, string token);
+       object ValidateToken(string token);
     }
 }

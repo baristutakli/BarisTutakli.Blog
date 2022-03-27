@@ -57,5 +57,28 @@ namespace BarisTutakli.Blog.Application.Concrete
             };
 
         }
+        public object ValidateToken(string token)
+        {
+            var mySecret = Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]);
+            var mySecurityKey = new SymmetricSecurityKey(mySecret);
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            tokenHandler.ValidateToken(token,
+            new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidIssuer = _configuration["JWT:ValidIssuer"],
+                ValidAudience = _configuration["JWT:ValidAudience"],
+                IssuerSigningKey = mySecurityKey,
+            }, out SecurityToken validatedToken);
+            var jwtToken = (JwtSecurityToken)validatedToken;
+            var userName = jwtToken.Claims.First().Value;
+            var jti=jwtToken.Claims.First(x => x.Type == JwtRegisteredClaimNames.Jti).Value;
+            var role = jwtToken.Claims.First(x=>x.Type== ClaimTypes.Role).Value;
+            
+            return new{ UserName=userName,Role=role };
+        }
     }
 }

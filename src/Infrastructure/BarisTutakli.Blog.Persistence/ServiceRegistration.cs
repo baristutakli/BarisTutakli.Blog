@@ -24,7 +24,6 @@ namespace BarisTutakli.Blog.Persistence
         {
             services.AddDbContext<UserDbContext>(opts => opts.UseSqlServer(configuration["ConnectionString:DBBlog"]));
            services.AddScoped<UserDbContext>();
-            // Logging
            
             // Repositories
             services.AddScoped<IPostRepository, PostRepository>();

@@ -2,6 +2,7 @@
 using BarisTutakli.Blog.Application.Models.UserModels;
 using BarisTutakli.Blog.Application.ViewModels.UserViewModels;
 using BarisTutakli.Blog.Application.Wrappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -46,7 +47,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
-
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]
         [Route("register/admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] CreateUserModel model)
