@@ -19,15 +19,15 @@ namespace BarisTutakli.Blog.WebAPI.Middleware
     public class CustomExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        // private readonly ILoggerService<string> _loggerService;
+       // private readonly ITokenService _tokenService;
         private readonly ICrossCuttingConcernsFactory<string> _crossCuttingConcernsFactory;
-        public CustomExceptionMiddleware(RequestDelegate next, ILoggerService<string> loggerService, ICrossCuttingConcernsFactory<string> crossCuttingConcernsFactory)
+        public CustomExceptionMiddleware(RequestDelegate next,  ICrossCuttingConcernsFactory<string> crossCuttingConcernsFactory)
         {
             _next = next;
-            //   _loggerService = loggerService;
+          
             _crossCuttingConcernsFactory = crossCuttingConcernsFactory;
         }
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, ITokenService _tokenService)
         {
             var watch = Stopwatch.StartNew();
             try
@@ -35,29 +35,16 @@ namespace BarisTutakli.Blog.WebAPI.Middleware
 
                 string message = $"[Request HTTP] {context.Request.Method } -- {context.Request.Path}\n";
                 _crossCuttingConcernsFactory.CreateMongoDBLogging().Log(new Logs<string>() { Data = message, Succeeded=true });
-               // _loggerService.Log(new Logs<string>() { Data=message});
 
-                //ReadToken
-                //var token = "";
-                //if (context.Request.Headers["Authorization"].ToString().Length > 20)
-                //{
+                var token = "";
+                if (context.Request.Headers["Authorization"].ToString().StartsWith("Bearer"))
+                {
+                    // reomves "Bearer " from the beginning of the token 
+                    token = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-                //    token = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-                //    var mySecret = Encoding.UTF8.GetBytes("ByYM000OLlMQG6VVVp1OH7Xzyr7gHuw1qvUC5dcGt3SNM");
-                //    var mySecurityKey = new SymmetricSecurityKey(mySecret);
-                //    var tokenHandler = new JwtSecurityTokenHandler();
-
-                //    tokenHandler.ValidateToken(token,
-                //    new TokenValidationParameters
-                //    {
-                //        ValidateIssuerSigningKey = true,
-                //        ValidateIssuer = true,
-                //        ValidateAudience = true,
-                //        ValidIssuer = "http://localhost:5000/",
-                //        ValidAudience = "http://localhost:5000/",
-                //        IssuerSigningKey = mySecurityKey,
-                //    }, out SecurityToken validatedToken);
-                //}
+                    var user = _tokenService.ValidateToken(token);
+                    // will be continued...   
+                }
 
 
                 await _next(context);
@@ -82,7 +69,6 @@ namespace BarisTutakli.Blog.WebAPI.Middleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             string message = $"[Error] HTTP {context.Request.Method} -- {context.Response.StatusCode} Error Message: {ex.Message} in {watch.Elapsed.TotalMilliseconds}ms";
-          //  _loggerService.Log(new Logs<string>() { Data = message });
             var result = JsonConvert.SerializeObject(new { error = ex.Message }, Formatting.None);
             return context.Response.WriteAsync(result);
         }
