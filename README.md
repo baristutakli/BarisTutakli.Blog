@@ -7,7 +7,7 @@ This is an application of Onion Architecture. There are three main folders named
 ### Patterns
 * **Unit of Work**
 * **Generic Repository**
-* **Abstract Factory Pattern**
+* **Factory Method attern**
 
 ### Technologies
 * FluentValidation

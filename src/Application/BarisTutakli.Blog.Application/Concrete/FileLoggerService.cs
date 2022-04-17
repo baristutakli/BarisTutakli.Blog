@@ -23,7 +23,7 @@ namespace BarisTutakli.Blog.Application.Concrete
         {
             Console.WriteLine($"[FileLogger]: {System.Text.Json.JsonSerializer.Serialize(logs)}");
 
-            // This code log messages into documents directory
+            // This code logs messages into documents directory
             string mainPath = _hostingEnvironment.ContentRootPath;
             //string filePath = $"{mainPath}\\LogFiles\\";
             string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -31,7 +31,7 @@ namespace BarisTutakli.Blog.Application.Concrete
             {
                 Directory.CreateDirectory(docPath);
             }
-            // Write the specified text asynchronously to a new file named "WriteTextAsync.txt".
+            // Write the specified text asynchronously to a new file named "RequestAndResponseLogger.txt".
             using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath,
                 "RequestAndResponseLogger.txt"), true))
             {
