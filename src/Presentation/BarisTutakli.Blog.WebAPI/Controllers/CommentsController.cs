@@ -1,6 +1,8 @@
 ﻿using BarisTutakli.Blog.Application.Models.CommentModels;
 using BarisTutakli.Blog.Application.Tools.JsonConverterTools;
+using BarisTutakli.Blog.Application.ViewModels.UserViewModels;
 using Blog.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -11,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace BarisTutakli.Blog.WebAPI.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize( Roles = Roles.User)]
+    [Authorize(Roles = Roles.Admin)]
     [Route("api/Comments")]
     [ApiController]
     public class CommentsController : ControllerBase
@@ -22,6 +27,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
             _commentService = commentService;
 
         }
+        [AllowAnonymous]
         // GET: api/<CommentsController>
         [HttpGet]
         public IActionResult Get()
@@ -29,7 +35,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
             var comments = _commentService.GetAll();
             return Ok(comments);
         }
-
+        [AllowAnonymous]
         // GET api/<CommentsController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)

@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace BarisTutakli.Blog.WebAPI.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/Authenticate")]
     [ApiController]
     public class AuthenticateController : ControllerBase
@@ -21,7 +22,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
         {
             _authenticateService = authenticateService;
         }
-
+        [AllowAnonymous]
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
@@ -31,7 +32,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
             return token.AccessToken != null ? Ok() : Unauthorized();
 
         }
-
+        [AllowAnonymous]
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] CreateUserModel model)
@@ -47,7 +48,8 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
-        [Authorize(AuthenticationSchemes = "Bearer")]
+
+        [Authorize(Roles = Roles.Admin)]
         [HttpPost]
         [Route("register/admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] CreateUserModel model)

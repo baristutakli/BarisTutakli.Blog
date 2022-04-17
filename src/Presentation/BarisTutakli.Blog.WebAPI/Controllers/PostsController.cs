@@ -1,6 +1,8 @@
 ﻿using BarisTutakli.Blog.Application.Models.PostModels;
 using BarisTutakli.Blog.Application.Tools.JsonConverterTools;
+using BarisTutakli.Blog.Application.ViewModels.UserViewModels;
 using Blog.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -11,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace BarisTutakli.Blog.WebAPI.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(Roles = Roles.User)]
+    [Authorize(Roles = Roles.Admin)]
     [Route("api/Posts")]
     [ApiController]
     public class PostsController : ControllerBase
@@ -22,6 +27,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
             _postService = postService;
 
         }
+        [AllowAnonymous]
         // GET: api/<PostsController>
         [HttpGet]
         public IActionResult Get()
@@ -29,7 +35,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
             var posts = _postService.GetAll();
             return Ok(posts);
         }
-
+        [AllowAnonymous]
         // GET api/<PostsController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
