@@ -1,6 +1,8 @@
 ﻿using BarisTutakli.Blog.Application.Models.TagModels;
 using BarisTutakli.Blog.Application.Tools.JsonConverterTools;
+using BarisTutakli.Blog.Application.ViewModels.UserViewModels;
 using Blog.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -11,6 +13,8 @@ using System.Threading.Tasks;
 
 namespace BarisTutakli.Blog.WebAPI.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(Roles = Roles.Admin)]
     [Route("api/Tags")]
     [ApiController]
     public class TagsController : ControllerBase
@@ -22,6 +26,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
             _tagService = tagService;
 
         }
+        [AllowAnonymous]
         // GET: api/<TagsController>
         [HttpGet]
         public IActionResult Get()
@@ -29,7 +34,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
             var tags = _tagService.GetAll();
             return Ok(tags);
         }
-
+        [AllowAnonymous]
         // GET api/<TagsController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)

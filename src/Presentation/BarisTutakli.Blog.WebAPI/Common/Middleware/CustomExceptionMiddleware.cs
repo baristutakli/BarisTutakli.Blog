@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace BarisTutakli.Blog.WebAPI.Middleware
 {
+    
     public class CustomExceptionMiddleware
     {
         private readonly RequestDelegate _next;
@@ -37,6 +38,7 @@ namespace BarisTutakli.Blog.WebAPI.Middleware
                 _crossCuttingConcernsFactory.CreateMongoDBLogging().Log(new Logs<string>() { Data = message, Succeeded=true });
 
                 var token = "";
+                // user manager ı dail et ve veri tabanından token ı kontrol et
                 if (context.Request.Headers["Authorization"].ToString().StartsWith("Bearer"))
                 {
                     // reomves "Bearer " from the beginning of the token 

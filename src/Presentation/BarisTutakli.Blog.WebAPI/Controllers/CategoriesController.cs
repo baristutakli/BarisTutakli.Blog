@@ -1,6 +1,8 @@
 ﻿using BarisTutakli.Blog.Application.Models.CategoryModels;
 using BarisTutakli.Blog.Application.Tools.JsonConverterTools;
+using BarisTutakli.Blog.Application.ViewModels.UserViewModels;
 using Blog.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace BarisTutakli.Blog.WebAPI.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer", Roles =  Roles.Admin)]
     [Route("api/Categories")]
     [ApiController]
     public class CategoriesController : ControllerBase
@@ -22,13 +25,15 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
             _categoryService = categoryService;
 
         }
-        // GET: api/<CategoriesController>
+        [AllowAnonymous]
+        // GET: api/<CategoriesController> 
         [HttpGet]
         public IActionResult GetAll()
         {
             var categories = _categoryService.GetAll();
             return Ok(categories);
         }
+        [AllowAnonymous]
         [HttpGet("titles")]
         //[Route("/titles")]
         public IActionResult GetTitles()
@@ -36,7 +41,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
             var categories = _categoryService.GetTitles();
             return Ok(categories);
         }
-
+        [AllowAnonymous]
         // GET api/<CategoriesController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
@@ -45,7 +50,7 @@ namespace BarisTutakli.Blog.WebAPI.Controllers
 
             return Ok(category);
         }
-
+        
         // POST api/<CategoriesController>
         [HttpPost]
         public IActionResult Post([FromBody] CreateCategoryModel createCategoryModel)
